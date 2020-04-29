@@ -44,7 +44,7 @@
            "value": "dev"
          },
          "rgLocation": {
-           "value": "[parameters('rgLocation')]"
+           "value": "eastus"
          }
        }
      }
