@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "value": "test-rg" // TODO: Fill in parameter value
+        },
+        "rgLocation": {
+            "value": "eastus" // TODO: Fill in parameter value
+        },
+        "linkedTemplateUri": {
+            "value": "https://github.com/sourav82/NRIITemplates/blob/master/storageaccount.json" // TODO: Fill in parameter value
+        }
+    }
+}

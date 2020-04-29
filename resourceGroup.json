@@ -28,6 +28,9 @@
      "name": "linkedTemplate",
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2018-05-01",
+     "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+      ],
      "properties": {
        "mode": "Incremental",
        "templateLink": {
