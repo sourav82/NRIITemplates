@@ -39,7 +39,7 @@
        },
        "parameters": {
          "storageAccountName": {
-           "value": "stgiidstpochub001"
+           "value": "[concat('stg', resourceGroup().name, resourceGroup().id)]"
          },
          "environmentType": {
            "value": "dev"
