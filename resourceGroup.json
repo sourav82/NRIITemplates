@@ -25,9 +25,10 @@
       "properties": {}
     },
     {
-     "name": "linkedTemplate",
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2018-05-01",
+     "name": "linkedTemplate",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
       ],
