@@ -39,7 +39,7 @@
        },
        "parameters": {
          "storageAccountName": {
-           "value": "[concat('stg', resourceGroup().name, resourceGroup().id)]"
+           "value": "[concat('stg', parameters('rgName'))]"
          },
          "environmentType": {
            "value": "dev"
