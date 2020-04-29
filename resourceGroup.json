@@ -42,6 +42,9 @@
          },
          "environmentType": {
            "value": "dev"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
          }
        }
      }
