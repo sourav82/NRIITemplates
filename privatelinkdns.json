@@ -15,7 +15,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/privateDnsZones",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2018-09-01",
             "name": "[variables('privateDnsName')]",
             "location": "global",
             "tags": {},
