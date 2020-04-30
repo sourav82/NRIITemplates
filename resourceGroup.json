@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "rgName": {
@@ -151,8 +151,8 @@
          }
        }
      }
-   },
-      {
+    },
+    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2017-05-10",
      "name": "virtualnetworkdeployment",
@@ -260,6 +260,7 @@
      "resourceGroup": "[parameters('rgName')]",
      "name": "keyvaultdeployment",
      "dependsOn": [
+       "virtualnetworkdeployment",
        "privatelinkdeployment"
      ],
      "properties": {
