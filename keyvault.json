@@ -57,13 +57,46 @@
                 },
                 "accessPolicies": [
                     {
-                        "tenantId": "[subscription().tenantId]",
-                        "objectId": "",
+                        "tenantId": "31d4d1dc-cce4-44eb-9b04-f716a5be2630",
+                        "objectId": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5",
                         "permissions": {
-                            "keys": [],
-                            "secrets": [],
-                            "certificates": [],
-                            "storage": []
+                            "keys": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "secrets": [
+                                "Get",
+                                "List",
+                                "Set",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore"
+                            ],
+                            "certificates": [
+                                "Get",
+                                "List",
+                                "Update",
+                                "Create",
+                                "Import",
+                                "Delete",
+                                "Recover",
+                                "Backup",
+                                "Restore",
+                                "ManageContacts",
+                                "ManageIssuers",
+                                "GetIssuers",
+                                "ListIssuers",
+                                "SetIssuers",
+                                "DeleteIssuers"
+                            ]
                         }
                     }
                 ],
