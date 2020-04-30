@@ -44,12 +44,6 @@
                     },
                     "file": {
                         "enabled": true
-                    },
-                    "queue": {
-                        "enabled": true
-                    },
-                    "table": {
-                        "enabled": true
                     }
                 }
             },
