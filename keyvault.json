@@ -55,7 +55,18 @@
                     "family": "A",
                     "name": "[parameters('keyVauleSkuName')]"
                 },
-                "accessPolicies": [],
+                "accessPolicies": [
+                    {
+                        "tenantId": "[subscription().tenantId]",
+                        "objectId": "",
+                        "permissions": {
+                            "keys": [],
+                            "secrets": [],
+                            "certificates": [],
+                            "storage": []
+                        }
+                    }
+                ],
                 "enabledForDeployment": true,
                 "enabledForDiskEncryption": true,
                 "enabledForTemplateDeployment": true,
