@@ -128,7 +128,7 @@
     },
     {
      "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2017-05-10",
+     "apiVersion": "2019-10-01",
      "name": "storageDeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
@@ -154,7 +154,7 @@
     },
     {
      "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2017-05-10",
+     "apiVersion": "2019-10-01",
      "name": "virtualnetworkdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
@@ -192,7 +192,7 @@
    },
    {
      "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2017-05-10",
+     "apiVersion": "2019-10-01",
      "name": "privatelinkdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
@@ -233,7 +233,7 @@
    },
    {
      "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2017-05-10",
+     "apiVersion": "2019-10-01",
      "name": "privatednsdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
@@ -256,7 +256,7 @@
    },
    {
      "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2019-05-01",
+     "apiVersion": "2019-10-01",
      "resourceGroup": "[parameters('rgName')]",
      "name": "keyvaultdeployment",
      "dependsOn": [
