@@ -108,7 +108,7 @@
      "name": "linkedTemplate",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-        "[resourceId('Microsoft.Network/privateEndpoints/', parameters('privateEndpointName'))]"
+        "privatelinkdeployment"
       ],
      "properties": {
        "mode": "Incremental",
@@ -177,7 +177,7 @@
      "name": "privatelinkdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-       "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
+       "virtualnetworkdeployment"
      ],
      "properties": {
        "mode": "Incremental",
@@ -219,7 +219,7 @@
      "location": "[parameters('rgLocation')]",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-       "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
+       "virtualnetworkdeployment"
      ],
      "properties": {
        "mode": "Incremental",
