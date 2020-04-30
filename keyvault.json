@@ -55,6 +55,7 @@
                     "family": "A",
                     "name": "[parameters('keyVauleSkuName')]"
                 },
+                "accessPolicies": [],
                 "enabledForDeployment": true,
                 "enabledForDiskEncryption": true,
                 "enabledForTemplateDeployment": true,
