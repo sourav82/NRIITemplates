@@ -283,9 +283,6 @@
          },
          "keyVauleSkuName": {
            "value": "[parameters('keyVauleSkuName')]"
-         },
-         "vnetName": {
-           "value": "[parameters('vnetName')]"
          }
        }
      }
