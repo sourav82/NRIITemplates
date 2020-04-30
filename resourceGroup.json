@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "rgName": {
@@ -107,7 +107,7 @@
      "apiVersion": "2018-05-01",
      "name": "linkedTemplate",
      "location": "[parameters('rgLocation')]",
-    // "resourceGroup": "[parameters('rgName')]",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
         "privatelinkdeployment"
       ],
@@ -134,7 +134,7 @@
      "apiVersion": "2019-10-01",
      "location": "[parameters('rgLocation')]",
      "name": "virtualnetworkdeployment",
-    // "resourceGroup": "[parameters('rgName')]",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
      ],
@@ -173,7 +173,7 @@
      "apiVersion": "2019-10-01",
      "location": "[parameters('rgLocation')]",
      "name": "privatelinkdeployment",
-    // "resourceGroup": "[parameters('rgName')]",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
@@ -215,7 +215,7 @@
      "apiVersion": "2019-10-01",
      "name": "privatednsdeployment",
      "location": "[parameters('rgLocation')]",
- //    "resourceGroup": "[parameters('rgName')]",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
