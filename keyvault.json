@@ -67,12 +67,7 @@
                 "enableSoftDelete": true,
                 "networkAcls": {
                     "bypass": "None",
-                    "defaultAction": "Deny",
-                    "virtualNetworkRules": [
-                        {
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
-                        }
-                    ]
+                    "defaultAction": "Deny"
                 }
             }
         }
