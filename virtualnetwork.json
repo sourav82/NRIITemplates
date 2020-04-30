@@ -60,7 +60,8 @@
                 },
                 "virtualNetworkPeerings": [],
                 "enableDdosProtection": false,
-                "enableVmProtection": true
+                "enableVmProtection": true,
+                "subnets": ["[parameters('privateLinkSubnetName')]", "[parameters('vmSubnetName')]"]
             }
         },
         {

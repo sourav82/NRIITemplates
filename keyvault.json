@@ -35,12 +35,6 @@
                 "Standard",
                 "Premium"
             ]
-        },
-        "vnetName": {
-           "type": "string",
-           "metadata": {
-                "description": "Name of the vnet which need access to this key vault"
-            }
         }
     },
     "functions": [],
