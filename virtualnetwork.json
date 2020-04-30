@@ -59,7 +59,7 @@
                     ]
                 },
                 "virtualNetworkPeerings": [],
-                "enableDdosProtection": true,
+                "enableDdosProtection": false,
                 "enableVmProtection": true
             }
         },
