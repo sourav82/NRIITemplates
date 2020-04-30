@@ -61,7 +61,26 @@
                 "virtualNetworkPeerings": [],
                 "enableDdosProtection": false,
                 "enableVmProtection": true,
-                "subnets": ["[parameters('privateLinkSubnetName')]", "[parameters('vmSubnetName')]"]
+                "subnets": [
+                    {
+                        "name": "[parameters('privateLinkSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('privateLinkSubnetCIDR')]",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Disabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    },
+                    {
+                        "name": "[parameters('vmSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('vmSubnetCIDR')]",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Disabled",
+                            "privateLinkServiceNetworkPolicies": "Disabled"
+                        }
+                    }
+                ]
             }
         },
         {
