@@ -141,7 +141,7 @@
        },
        "parameters": {
          "storageAccountName": {
-           "value": "[concat('stg', 'ii', parameters('environment'), resourceGroup().id]"
+           "value": "[concat('stg', 'ii', parameters('environment'), resourceGroup().id)]"
          },
          "environmentType": {
            "value": "[parameters('environment')]"
