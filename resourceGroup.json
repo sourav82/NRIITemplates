@@ -32,6 +32,18 @@
             "description": "Linked template for virtual network"
         }
     },
+    "privateLinkTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Linked template for private link deployment"
+        }
+    },
+    "privateLinkDnsTemplateuri": {
+       "type": "string",
+       "metadata": {
+            "description": "Linked template for private link dns deployment"
+        }
+    },
     "vnetName": {
        "type": "string",
        "metadata": {
@@ -96,7 +108,7 @@
      "name": "linkedTemplate",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments/', 'privatelinkdeployment')]"
+        "[resourceId('Microsoft.Network/privateEndpoints/', parameters('privateEndpointName'))]"
       ],
      "properties": {
        "mode": "Incremental",
@@ -165,12 +177,12 @@
      "name": "privatelinkdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-       "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
+       "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
      ],
      "properties": {
        "mode": "Incremental",
        "templateLink": {
-         "uri": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/privatelink.json"
+         "uri": "[parameters('privateLinkTemplateUri')]"
        },
        "parameters": {
          "rgLocation": {
@@ -207,12 +219,12 @@
      "location": "[parameters('rgLocation')]",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-       "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
+       "[resourceId('Microsoft.Network/virtualNetworks/', parameters('vnetName'))]"
      ],
      "properties": {
        "mode": "Incremental",
        "templateLink": {
-         "uri": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/privatelinkdns.json"
+         "uri": "[parameters('privateLinkDnsTemplateUri')]"
        },
        "parameters": {
          "storageAccountName": {
