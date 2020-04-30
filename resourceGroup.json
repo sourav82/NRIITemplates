@@ -106,7 +106,7 @@
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2018-05-01",
      "name": "linkedTemplate",
-     "resourceGroup": "[parameters('rgName')]",
+    // "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
         "privatelinkdeployment"
       ],
@@ -133,7 +133,7 @@
      "apiVersion": "2019-10-01",
      "location": "[parameters('rgLocation')]",
      "name": "virtualnetworkdeployment",
-     "resourceGroup": "[parameters('rgName')]",
+    // "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
      ],
@@ -175,7 +175,7 @@
      "apiVersion": "2019-10-01",
      "location": "[parameters('rgLocation')]",
      "name": "privatelinkdeployment",
-     "resourceGroup": "[parameters('rgName')]",
+    // "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
@@ -217,7 +217,7 @@
      "apiVersion": "2019-10-01",
      "name": "privatednsdeployment",
      "location": "[parameters('rgLocation')]",
-     "resourceGroup": "[parameters('rgName')]",
+ //    "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
