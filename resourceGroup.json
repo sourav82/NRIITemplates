@@ -25,6 +25,60 @@
        "metadata": {
             "description": "Linked template URI for storage account"
         }
+    },
+    "virtualNetworkTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Linked template for virtual network"
+        }
+    },
+    "vnetName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of virtual network"
+        }
+    },
+    "vnetAddressCIDR": {
+       "type": "string",
+       "metadata": {
+            "description": "CIDR of the IP segment for the virtual network"
+        }
+    },
+    "privateLinkSubnetName": {
+       "type": "string",
+       "metadata": {
+            "description": "name of the subnet containing private link"
+        }
+    },
+    "privateLinkSubnetCIDR": {
+       "type": "string",
+       "metadata": {
+            "description": "CIDR IP segment for private link subnet"
+        }
+    },
+    "privateEndpointName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of private endpoint"
+        }
+    },
+    "privateEndpointConnectionName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of private endpoint connection"
+        }
+    },
+    "vmSubnetName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of the subnet containing virtual machine for adf IR"
+        }
+    },
+    "vmSubnetCIDR": {
+       "type": "string",
+       "metadata": {
+            "description": "CIDR IP segment for vm subnet"
+        }
     }
   },
   "variables": {},
@@ -42,7 +96,7 @@
      "name": "linkedTemplate",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
+        "[resourceId('Microsoft.Resources/deployments/', 'privatelinkdeployment')]"
       ],
      "properties": {
        "mode": "Incremental",
@@ -67,12 +121,107 @@
      "apiVersion": "2019-10-01",
      "location": "[parameters('rgLocation')]",
      "name": "virtualnetworkdeployment",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
      ],
      "properties": {
        "mode": "Incremental",
-       "templateLink": ""
+       "templateLink": {
+        "uri": "[parameters('virtualNetworkTemplateUri')]" 
+       },
+       "parameters": {
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
+         },
+         "environmentType": {
+           "value": "[parameters('environment')]"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "vnetAddressCIDR": {
+           "value": "[parameters('vnetAddressCIDR')]"
+         },
+         "privateLinkSubnetName": {
+           "value": "[parameters('privateLinkSubnetName')]"
+         },
+         "privateLinkSubnetCIDR": {
+           "value": "[parameters('privateLinkSubnetCIDR')]"
+         },
+         "vmSubnetName": {
+           "value": "[parameters('vmSubnetName')]"
+         },
+         "vmSubnetCIDR": {
+           "value": "[parameters('vmSubnetCIDR')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "location": "[parameters('rgLocation')]",
+     "name": "privatelinkdeployment",
+     "resourceGroup": "[parameters('rgName')]",
+     "dependsOn": [
+       "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/privatelink.json"
+       },
+       "parameters": {
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "privateEndpointName": {
+           "value": "[parameters('privateEndpointName')]"
+         },
+         "privateEndpointConnectionName": {
+           "value": "[parameters('privateEndpointConnectionName')]"
+         },
+         "resourceType": {
+           "value": "Microsoft.Storage/storageAccounts"
+         },
+         "resourceName": {
+           "value": "[concat('stg', 'ii', parameters('environment'))]"
+         },
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
+         },
+         "subnetName": {
+           "value": "[parameters('privateLinkSubnetName')]"
+         },
+         "groupId": {
+           "value": "testgrp"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "name": "privatednsdeployment",
+     "location": "[parameters('rgLocation')]",
+     "resourceGroup": "[parameters('rgName')]",
+     "dependsOn": [
+       "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/privatelinkdns.json"
+       },
+       "parameters": {
+         "storageAccountName": {
+           "value": "[concat('stg', 'ii', parameters('environment'))]"
+         },
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
+         }
+       }
      }
    }
   ],
