@@ -39,8 +39,7 @@
     {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2017-05-10",
-     "name": "linkedTemplate",
-     "location": "[parameters('rgLocation')]",
+     "name": "storageDeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"

@@ -35,9 +35,15 @@
                     "uri": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/storageaccount.json"
                 },
                 "parameters": {
-                    "storageAccountName": "[parameters('storageAccountName')]",
-                    "rgLocation": "[parameters('rgLocation')]",
-                    "environmentType": "dev"
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "rgLocation": {
+                        "value": "[parameters('rgLocation')]"
+                    },
+                    "environmentType": {
+                        "value": "dev"
+                    }
                 }
             }
         }
