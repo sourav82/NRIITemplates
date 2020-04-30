@@ -43,7 +43,7 @@
      "location": "[parameters('rgLocation')]",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-        "privatelinkdeployment"
+        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
       ],
      "properties": {
        "mode": "Incremental",
