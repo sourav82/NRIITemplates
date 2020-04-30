@@ -63,9 +63,6 @@
                         "name": "[parameters('privateEndpointConnectionName')]",
                         "properties": {
                             "privateLinkServiceId": "[resourceId(parameters('resourceType'), parameters('resourceName'))]",
-                            "groupIds": [
-                                "[parameters('groupId')]"
-                            ]
                         }
                     }
                 ],
