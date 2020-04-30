@@ -49,7 +49,7 @@
     "resources": [
         {
             "type": "Microsoft.Network/virtualNetworks",
-            "apiVersion": "2017-10-01",
+            "apiVersion": "2019-11-01",
             "name": "[parameters('vnetName')]",
             "location": "[parameters('rgLocation')]",
             "properties": {
@@ -65,7 +65,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2019-11-01",
             "name": "[concat(parameters('vnetName'), '/', parameters('privateLinkSubnetName'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
@@ -79,7 +79,7 @@
         },
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2019-11-01",
             "name": "[concat(parameters('vnetName'), '/', parameters('vmSubnetName'))]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
