@@ -106,6 +106,7 @@
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2018-05-01",
      "name": "linkedTemplate",
+     "location": "[parameters('rgLocation')]",
     // "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
         "privatelinkdeployment"
