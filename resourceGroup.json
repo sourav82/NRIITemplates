@@ -202,7 +202,7 @@
            "value": "[parameters('privateLinkSubnetName')]"
          },
          "groupId": {
-           "value": "testgrp"
+           "value": "[concat('stg', 'ii', parameters('environment'))]"
          }
        }
      }
