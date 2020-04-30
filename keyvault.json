@@ -48,7 +48,7 @@
     "resources": [
         {
             "type": "Microsoft.KeyVault/vaults",
-            "apiVersion": "2019-09-01",
+            "apiVersion": "2016-10-01",
             "name": "[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
             "location": "[parameters('rgLocation')]",
             "tags": {
@@ -60,20 +60,20 @@
                 "sku": {
                     "family": "A",
                     "name": "[parameters('keyVauleSkuName')]"
+                },
+                "enabledForDeployment": true,
+                "enabledForDiskEncryption": true,
+                "enabledForTemplateDeployment": true,
+                "enableSoftDelete": true,
+                "networkAcls": {
+                    "bypass": "None",
+                    "defaultAction": "Deny",
+                    "virtualNetworkRules": [
+                        {
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
+                        }
+                    ]
                 }
-            },
-            "enabledForDeployment": true,
-            "enabledForDiskEncryption": true,
-            "enabledForTemplateDeployment": true,
-            "enableSoftDelete": true,
-            "networkAcls": {
-                "bypass": "None",
-                "defaultAction": "Deny",
-                "virtualNetworkRules": [
-                    {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]"
-                    }
-                ]
             }
         }
     ],
