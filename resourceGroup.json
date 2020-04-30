@@ -3,15 +3,27 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "rgName": {
-      "type": "string"
+      "type": "string",
+       "metadata": {
+            "description": "Name of the resource group"
+        }
     },
     "rgLocation": {
-      "type": "string"
+      "type": "string",
+       "metadata": {
+            "description": "Location of the resource group"
+        }
     },
-    "linkedTemplateUri": {
+    "environment": {
+      "type": "string",
+       "metadata": {
+            "description": "Environment of the resource roup"
+        }
+    },
+    "storageTemplateUri": {
        "type": "string",
        "metadata": {
-            "description": "Linked template URI"
+            "description": "Linked template URI for storage account"
         }
     }
   },
@@ -30,24 +42,37 @@
      "name": "linkedTemplate",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+        "[resourceId('Microsoft.Resources/deployments/', 'virtualnetworkdeployment')]"
       ],
      "properties": {
        "mode": "Incremental",
        "templateLink": {
-         "uri": "[parameters('linkedTemplateUri')]"
+         "uri": "[parameters('storageTemplateUri')]"
        },
        "parameters": {
          "storageAccountName": {
-           "value": "[concat('stg', parameters('rgName'))]"
+           "value": "[concat('stg', 'ii', parameters('environment'))]"
          },
          "environmentType": {
-           "value": "dev"
+           "value": "[parameters('environment')]"
          },
          "rgLocation": {
-           "value": "eastus"
+           "value": "[parameters('rgLocation')]"
          }
        }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "location": "[parameters('rgLocation')]",
+     "name": "virtualnetworkdeployment",
+     "dependsOn": [
+       "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": ""
      }
    }
   ],

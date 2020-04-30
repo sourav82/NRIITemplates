@@ -35,7 +35,35 @@
         "sku": {
            "name": "Premium_LRS",
            "tier": "Premium"
-         }
+         },
+         "properties": {
+            "encryption": {
+                "keySource": "Microsoft.Storage",
+                "services": {
+                    "blob": {
+                        "enabled": true
+                    },
+                    "file": {
+                        "enabled": true
+                    },
+                    "queue": {
+                        "enabled": true
+                    },
+                    "table": {
+                        "enabled": true
+                    }
+                }
+            },
+            "isHnsEnabled": true,
+            "supportsHttpsTrafficOnly": true,
+            "networkAcls": {
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [],
+                "ipRules": [],
+                "defaultAction": "Deny"
+            },
+            "accessTier": "Hot"
+        }
     }],
     "outputs": {}
 }
