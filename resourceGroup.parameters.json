@@ -23,6 +23,9 @@
         "privateLinkDnsTemplateuri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/privatelinkdns.json"
         },
+        "keyVaultTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/master/keyvault.json"
+        },
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
@@ -46,6 +49,15 @@
         },
         "vmSubnetCIDR": {
             "value": "10.120.1.0/24"
+        },
+        "project": {
+            "value": "track"
+        },
+        "application": {
+            "value": "dst"
+        },
+        "keyVauleSkuName": {
+            "value": "Standard"
         }
     }
 }

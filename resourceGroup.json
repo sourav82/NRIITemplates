@@ -44,6 +44,12 @@
             "description": "Linked template for private link dns deployment"	
         }	
     },	
+    "keyVaultTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Linked template for key vault deployment"
+        }
+    },
     "vnetName": {	
        "type": "string",	
        "metadata": {	
@@ -91,6 +97,24 @@
        "metadata": {	
             "description": "CIDR IP segment for vm subnet"	
         }	
+    },
+    "project": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of the workstream project for this deployment"
+        }
+    },
+    "application": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of the application for which this deployment is done"
+        }
+    },
+    "keyVauleSkuName": {
+       "type": "string",
+       "metadata": {
+            "description": "Key vault sku name - standard or premium"
+        }
     }
   },
   "variables": {},
@@ -223,6 +247,41 @@
        "parameters": {
          "storageAccountName": {
            "value": "[concat('stg', 'ii', parameters('environment'))]"
+         },
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-05-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "keyvaultdeployment",
+     "dependsOn": [
+       "privatelinkdeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('keyVaultTemplateUri')]"
+       },
+       "parameters": {
+         "rglocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "environment": {
+           "value": "[parameters('environment')]"
+         },
+         "project": {
+           "value": "[parameters('project')]"
+         },
+         "application": {
+           "value": "[parameters('application')]"
+         },
+         "keyVauleSkuName": {
+           "value": "[parameters('keyVauleSkuName')]"
          },
          "vnetName": {
            "value": "[parameters('vnetName')]"

@@ -2,12 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "kvName": {
-           "type": "string",
-           "metadata": {
-                "description": "name of the key vault"
-            }
-        },
         "rglocation": {
            "type": "string",
            "metadata": {
@@ -26,13 +20,13 @@
                 "description": "Workstream for which this is being deployed"
             }
         },
-        "tenantId": {
+        "application": {
            "type": "string",
            "metadata": {
-                "description": "Tenant Id for the key vault"
+                "description": "The application which can have access to this key vault"
             }
         },
-        "skuName": {
+        "keyVauleSkuName": {
            "type": "string",
            "metadata": {
                 "description": "Sku name for the key vault"
@@ -55,17 +49,17 @@
         {
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2019-09-01",
-            "name": "[parameters('kvName')]",
+            "name": "[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
             "location": "[parameters('rgLocation')]",
             "tags": {
                 "Environment-Type": "[parameters('environment')]",
                 "Project": "[parameters('project')]"
             },
             "properties": {
-                "tenantId": "[parameters('tenantId')]",
+                "tenantId": "[subscription().tenantId]",
                 "sku": {
                     "family": "A",
-                    "name": "[parameters('skuName')]"
+                    "name": "[parameters('keyVauleSkuName')]"
                 }
             },
             "enabledForDeployment": true,
