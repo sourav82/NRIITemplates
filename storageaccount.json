@@ -23,9 +23,9 @@
     },
     "variables": {},
     "resources": [{
-        "name": "[parameters('storageAccountName')]",
         "type": "Microsoft.Storage/storageAccounts",
         "apiVersion": "2017-10-01",
+        "name": "[parameters('storageAccountName')]",
         "tags": {
             "Environment-Type": "[parameters('environmentType')]"
         },
