@@ -54,7 +54,7 @@
             "value": "track"
         },
         "application": {
-            "value": "dst"
+            "value": "edst"
         },
         "keyVauleSkuName": {
             "value": "Standard"
