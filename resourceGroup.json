@@ -146,9 +146,6 @@
          "vnetName": {
            "value": "[parameters('vnetName')]"
          },
-         "environmentType": {
-           "value": "[parameters('environment')]"
-         },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
          },
