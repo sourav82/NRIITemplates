@@ -141,7 +141,7 @@
        },
        "parameters": {
          "storageAccountName": {
-           "value": "[concat('stg', 'ii', parameters('environment'), resourceGroup().id)]"
+           "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
          },
          "environmentType": {
            "value": "[parameters('environment')]"
@@ -217,7 +217,7 @@
            "value": "Microsoft.Storage/storageAccounts"
          },
          "resourceName": {
-           "value": "[concat('stg', 'ii', parameters('environment'), resourceGroup().id)]"
+           "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
          },
          "vnetName": {
            "value": "[parameters('vnetName')]"
@@ -246,7 +246,7 @@
        },
        "parameters": {
          "storageAccountName": {
-           "value": "[concat('stg', 'ii', parameters('environment'), resourceGroup().id)]"
+           "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
          },
          "vnetName": {
            "value": "[parameters('vnetName')]"
