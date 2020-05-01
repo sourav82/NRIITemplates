@@ -59,6 +59,9 @@
         "keyVauleSkuName": {
             "value": "Standard"
         },
+        "keyVaultAccessPolicyObjId": {
+            "value": "objectid"
+        },
         "containerPrefix": {
             "value": "container-"
         },

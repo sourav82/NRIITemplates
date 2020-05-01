@@ -50,6 +50,12 @@
             "description": "Linked template for key vault deployment"
         }
     },
+    "keyVaultAccessPolicyObjId": {
+        "type": "string",
+        "metadata": {
+            "description": "Object Id for key vault access policy"
+        }
+    },    
     "vnetName": {	
        "type": "string",	
        "metadata": {	
@@ -301,6 +307,9 @@
          },
          "keyVauleSkuName": {
            "value": "[parameters('keyVauleSkuName')]"
+         },
+         "keyVaultAccessPolicyObjId": {
+           "value": "[parameters('keyVaultAccessPolicyObjId')]"
          }
        }
      }

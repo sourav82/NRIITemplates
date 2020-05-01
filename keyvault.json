@@ -35,6 +35,12 @@
                 "Standard",
                 "Premium"
             ]
+        },
+        "keyVaultAccessPolicyObjId": {
+           "type": "string",
+           "metadata": {
+                "description": "Object Id for key vault access policy"
+            }
         }
     },
     "functions": [],
@@ -57,8 +63,8 @@
                 },
                 "accessPolicies": [
                     {
-                        "tenantId": "31d4d1dc-cce4-44eb-9b04-f716a5be2630",
-                        "objectId": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5",
+                        "tenantId": "[subscription().tenantId]",
+                        "objectId": "[parameters('keyVaultAccessPolicyObjId')]",
                         "permissions": {
                             "keys": [
                                 "Get",
