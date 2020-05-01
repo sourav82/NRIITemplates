@@ -139,18 +139,12 @@
         "metadata": {
             "description": "Number of conatiners to create"
         }
-    },
-    "sqlPasswordSecretName": {
-       "type": "string",
-       "metadata": {
-            "description": "Name of the secret for sql connection"
-        }
     }
   },
   "variables": {
     "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]",
     "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
-    "secretName": "[concat(variables('kvName'), '/', parameters('sqlPasswordSecretName'))]"
+    "secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]"
   },
   "resources": [
     {
