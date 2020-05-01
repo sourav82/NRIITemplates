@@ -44,12 +44,19 @@
         }
     },
     "functions": [],
-    "variables": {},
+    "variables": {
+        "kvName":{
+            "value": "[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]"
+        },
+        "sqlPasswordSecretName": {
+            "value": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]"
+        }
+    },
     "resources": [
         {
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
-            "name": "[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
+            "name": "[variables('kvName')]" ,
             "location": "[parameters('rgLocation')]",
             "tags": {
                 "Environment-Type": "[parameters('environment')]",
@@ -114,6 +121,18 @@
                     "bypass": "AzureServices",
                     "defaultAction": "Deny"
                 }
+            }
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults/secrets",
+            "name": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]",
+            "apiVersion": "2016-10-01",
+            "location": "[parameters('rglocation')]",
+            "dependsOn": [
+            "[resourceId('Microsoft.KeyVault/vaults', variables('kvName'))]"
+            ],
+            "properties": {
+                "value": "[concat('kvsecret',parameters('environment'),parameters('project'),uniqueString(resourceGroup().id))]"
             }
         }
     ],
