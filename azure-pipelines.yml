@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Subscription'
+    azureResourceManagerConnection: 'AzureRmPipelineConn'
+    subscriptionId: '20a2b842-e086-436b-ad2f-5ba34b40e97f'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'NRIITemplates/resourceGroup.json'
+    csmParametersFile: 'NRIITemplates/resourceGroup.parameters.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'dev-deployment'
