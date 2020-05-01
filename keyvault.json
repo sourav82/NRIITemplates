@@ -45,12 +45,8 @@
     },
     "functions": [],
     "variables": {
-        "kvName":{
-            "value": "[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]"
-        },
-        "sqlPasswordSecretName": {
-            "value": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]"
-        }
+        "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
+        "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]"
     },
     "resources": [
         {
