@@ -18,7 +18,7 @@ steps:
     location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: 'resourceGroup.json'
-    csmParametersFile: 'resourceGroup.parameters.json'
+    csmParametersFile: 'resourceGroup.parameters-dev.json'
     overrideParameters: '-application nredst'
     deploymentMode: 'Incremental'
     deploymentName: 'dev-deployment'
