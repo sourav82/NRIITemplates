@@ -115,7 +115,19 @@
        "metadata": {
             "description": "Key vault sku name - standard or premium"
         }
-    }
+    },
+    "containerPrefix": {
+       "type": "string",
+       "metadata": {
+            "description": "All container name will start withis prefix"
+        }
+    },
+    "nbrContainers": {
+        "type": "int",
+        "metadata": {
+            "description": "Number of conatiners to create"
+        }
+      }
   },
   "variables": {},
   "resources": [
@@ -140,15 +152,21 @@
          "uri": "[parameters('storageTemplateUri')]"
        },
        "parameters": {
-         "storageAccountName": {
-           "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
-         },
-         "environmentType": {
-           "value": "[parameters('environment')]"
-         },
-         "rgLocation": {
-           "value": "[parameters('rgLocation')]"
-         }
+          "storageAccountName": {
+            "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
+          },
+          "environmentType": {
+            "value": "[parameters('environment')]"
+          },
+          "rgLocation": {
+            "value": "[parameters('rgLocation')]"
+          },
+          "containerPrefix":{
+            "value": "[parameters('containerPrefix')]"
+          },
+          "nbrContainers": {
+            "value": "[parameters('nbrContainers')]"
+          }
        }
      }
     },

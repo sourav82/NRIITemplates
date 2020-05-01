@@ -58,6 +58,12 @@
         },
         "keyVauleSkuName": {
             "value": "Standard"
+        },
+        "containerPrefix": {
+            "value": "container-"
+        },
+        "nbrContainers":{
+            "value": 1
         }
     }
 }
