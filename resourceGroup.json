@@ -356,7 +356,7 @@
          "administratorLoginPassword": {
             "reference": {
               "keyVault": {
-                "id": "[resourceId('Microsoft.KeyVault/vaults', variables('kvName'))]"
+                "id": "[resourceId(subscription().subscriptionId, concat('resourceGroups/',parameters('rgName'),'/providers'), 'Microsoft.KeyVault/vaults', variables('kvName'))]"
               },
               "secretName": "[variables('secretName')]"
             }
