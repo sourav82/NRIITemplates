@@ -26,12 +26,6 @@
           "description": "Location for all resources."
         }
       },
-      "administratorLogin": {
-        "type": "string",
-        "metadata": {
-          "description": "The administrator username of the SQL logical server."
-        }
-      },
       "administratorLoginPassword": {
         "type": "securestring",
         "metadata": {
@@ -62,13 +56,14 @@
       }
     },
     "variables": {
-        "serverName": "[concat('sqlii',parameters('applicationName'),parameters('environment'),parameters('projectName'))]",
+       "serverName": "[concat('sqlii',parameters('applicationName'),parameters('environment'),parameters('projectName'))]",
        "serverResourceGroupName": "[resourceGroup().name]",
        "subscriptionId": "[subscription().subscriptionId]",
        "uniqueStorage": "[uniqueString(variables('subscriptionId'), variables('serverResourceGroupName'), parameters('rgLocation'))]",
        "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
        "uniqueRoleGuid": "[guid(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), variables('storageBlobContributor'), resourceId('Microsoft.Sql/servers', parameters('serverName')))]",
-       "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]"
+       "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+       "administratorLogin": "superuser"
      },
     "resources": [
       {
@@ -78,7 +73,7 @@
         "location": "[parameters('rgLocation')]",
         "identity": "[if(parameters('enableADS'), json('{\"type\":\"SystemAssigned\"}'), json('null'))]",
         "properties": {
-          "administratorLogin": "[parameters('administratorLogin')]",
+          "administratorLogin": "[variables('administratorLogin')]",
           "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
           "version": "12.0"
         },

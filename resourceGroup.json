@@ -140,12 +140,6 @@
             "description": "Number of conatiners to create"
         }
     },
-    "sqlAdministratorLoginUserName": {
-       "type": "string",
-       "metadata": {
-            "description": "Sql login user name"
-        }
-    },
     "sqlPasswordSecretName": {
        "type": "string",
        "metadata": {
@@ -364,9 +358,6 @@
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
-         },
-         "administratorLogin": {
-           "value": "[parameters('sqlAdministratorLoginUserName')]"
          },
          "administratorLoginPassword": {
             "reference": {
