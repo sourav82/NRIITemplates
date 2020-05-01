@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "value": "testrg" // TODO: Fill in parameter value
+        },
+        "rgLocation": {
+            "value": "eastus" // TODO: Fill in parameter value
+        },
+        "environment": {
+            "value": "dev"
+        },
+        "storageTemplateUri":{
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/storageaccount.json"
+        },
+        "virtualNetworkTemplateUri":{
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/virtualnetwork.json"
+        },
+        "privateLinkTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/privatelink.json"
+        },
+        "privateLinkDnsTemplateuri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/privatelinkdns.json"
+        },
+        "keyVaultTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/keyvault.json"
+        },
+        "vnetName": {
+            "value": "VNET-DEV" // TODO: Fill in parameter value
+        },
+        "vnetAddressCIDR": {
+            "value": "10.120.0.0/16"
+        },
+        "privateLinkSubnetName": {
+            "value": "privlink-subnet"
+        },
+        "privateLinkSubnetCIDR": {
+            "value": "10.120.0.0/24"
+        },
+        "privateEndpointName": {
+            "value": "privlink"
+        },
+        "privateEndpointConnectionName": {
+            "value": "privconn"
+        },
+        "vmSubnetName": {
+            "value": "vm-subnet"
+        },
+        "vmSubnetCIDR": {
+            "value": "10.120.1.0/24"
+        },
+        "project": {
+            "value": "track"
+        },
+        "application": {
+            "value": "edst"
+        },
+        "keyVauleSkuName": {
+            "value": "Standard"
+        },
+        "containerPrefix": {
+            "value": "container-"
+        },
+        "nbrContainers":{
+            "value": 1
+        }
+    }
+}
