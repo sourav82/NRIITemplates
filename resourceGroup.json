@@ -50,12 +50,18 @@
             "description": "Linked template for key vault deployment"
         }
     },
+    "sqlDatabaseTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Sql database linked template for deployment"
+        }
+    },     
     "keyVaultAccessPolicyObjId": {
         "type": "string",
         "metadata": {
             "description": "Object Id for key vault access policy"
         }
-    },    
+    },   
     "vnetName": {	
        "type": "string",	
        "metadata": {	
@@ -133,9 +139,25 @@
         "metadata": {
             "description": "Number of conatiners to create"
         }
-      }
+    },
+    "sqlAdministratorLoginUserName": {
+       "type": "string",
+       "metadata": {
+            "description": "Sql login user name"
+        }
+    },
+    "sqlPasswordSecretName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of the secret for sql connection"
+        }
+    }
   },
-  "variables": {},
+  "variables": {
+    "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]",
+    "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
+    "secretName": "[concat(variables('kvName'), '/', parameters('sqlPasswordSecretName'))]"
+  },
   "resources": [
     {
       "type": "Microsoft.Resources/resourceGroups",
@@ -302,14 +324,57 @@
          "project": {
            "value": "[parameters('project')]"
          },
-         "application": {
-           "value": "[parameters('application')]"
-         },
          "keyVauleSkuName": {
            "value": "[parameters('keyVauleSkuName')]"
          },
          "keyVaultAccessPolicyObjId": {
            "value": "[parameters('keyVaultAccessPolicyObjId')]"
+         },
+         "sqlPasswordSecretName": {
+           "value": "[variables('sqlPasswordSecretName')]"
+         },
+         "kvName": {
+           "value": "[variables('kvName')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "sqldatabasedeployment",
+     "dependsOn": [
+       "keyvaultdeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('sqlDatabaseTemplateUri')]"
+       },
+       "parameters": {
+         "applicationName": {
+           "value": "[parameters('application')]"
+         },
+         "projectName": {
+           "value": "[parameters('project')]"
+         },
+         "environment": {
+           "value": "[parameters('environment')]"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "administratorLogin": {
+           "value": "[parameters('sqlAdministratorLoginUserName')]"
+         },
+         "administratorLoginPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "[resourceId(subscription().id, parameters('rgName'), 'Microsoft.KeyVault/vaults', variables('kvName'))]"
+              },
+              "secretName": "[variables('secretName')]"
+            }
          }
        }
      }

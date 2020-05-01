@@ -26,6 +26,9 @@
         "keyVaultTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/keyvault.json"
         },
+        "sqlDatabaseTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/sqldatabase.json"
+        },        
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
