@@ -356,7 +356,7 @@
          "administratorLoginPassword": {
             "reference": {
               "keyVault": {
-                "id": "[concat('/subscriptions/',subscription().subscriptionId, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
+                "id": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
               },
               "secretName": "[variables('secretName')]"
             }
