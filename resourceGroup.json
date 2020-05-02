@@ -353,8 +353,8 @@
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
          },
-         "rgName": {
-            "value": "[parameters('rgName')]"
+         "transparentDataEncryption": {
+            "value": "Enabled"
          },
          "administratorLoginPassword": {
             // "reference": {
