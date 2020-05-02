@@ -353,6 +353,9 @@
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
          },
+         "rgName": {
+            "value": "[parameters('rgName')]"
+         },
          "administratorLoginPassword": {
             // "reference": {
             //   "keyVault": {

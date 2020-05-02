@@ -26,6 +26,12 @@
           "description": "Location for all resources."
         }
       },
+      "rgName":{
+        "type": "string",
+        "metadata": {
+          "description": "Name of the resource group."
+        }
+      },
       "administratorLoginPassword": {
         "type": "securestring",
         "metadata": {
@@ -57,7 +63,7 @@
     },
     "variables": {
        "serverName": "[concat('sqlii',parameters('applicationName'),parameters('environment'),parameters('projectName'))]",
-       "serverResourceGroupName": "[resourceGroup().name]",
+       "serverResourceGroupName": "[parameters('rgName')]",
        "subscriptionId": "[subscription().subscriptionId]",
        "uniqueStorage": "[uniqueString(variables('subscriptionId'), variables('serverResourceGroupName'), parameters('rgLocation'))]",
        "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
