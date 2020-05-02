@@ -88,7 +88,7 @@
              "resources": [
                {
                  "comments": "Transparent Data Encryption",
-                 "name": "TDE",
+                 "name": "current",
                  "type": "transparentDataEncryption",
                  "apiVersion": "2014-04-01-preview",
                  "properties": {
