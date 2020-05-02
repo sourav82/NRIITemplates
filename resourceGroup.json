@@ -74,30 +74,54 @@
             "description": "CIDR of the IP segment for the virtual network"	
         }	
     },	
-    "privateLinkSubnetName": {	
+    "storageprivateLinkSubnetName": {	
        "type": "string",	
        "metadata": {	
-            "description": "name of the subnet containing private link"	
+            "description": "name of the subnet containing private link for storage"	
         }	
     },	
-    "privateLinkSubnetCIDR": {	
+    "storageprivateLinkSubnetCIDR": {	
        "type": "string",	
        "metadata": {	
-            "description": "CIDR IP segment for private link subnet"	
+            "description": "CIDR IP segment for private link subnet fir storage"	
         }	
     },	
-    "privateEndpointName": {	
+    "storageprivateEndpointName": {	
        "type": "string",	
        "metadata": {	
-            "description": "Name of private endpoint"	
+            "description": "Name of private endpoint for storage"	
         }	
-    },	
-    "privateEndpointConnectionName": {	
+    },
+    "sqlprivateEndpointName": {	
        "type": "string",	
        "metadata": {	
-            "description": "Name of private endpoint connection"	
+            "description": "Name of private endpoint for sql database"	
         }	
     },	
+    "storageprivateEndpointConnectionName": {	
+       "type": "string",	
+       "metadata": {	
+            "description": "Name of private endpoint connection for storage"	
+        }	
+    },	
+    "sqlprivateEndpointConnectionName": {	
+       "type": "string",	
+       "metadata": {	
+            "description": "Name of private endpoint connection for sql database"	
+        }	
+    },
+    "sqlprivateLinkSubnetName": {	
+       "type": "string",	
+       "metadata": {	
+            "description": "name of the subnet containing private link for sql server"	
+        }	
+    },	
+    "sqlprivateLinkSubnetCIDR": {	
+       "type": "string",	
+       "metadata": {	
+            "description": "CIDR IP segment for private link subnet for sql database"	
+        }	
+    },    	    
     "vmSubnetName": {	
        "type": "string",	
        "metadata": {	
@@ -221,12 +245,18 @@
          "vnetAddressCIDR": {
            "value": "[parameters('vnetAddressCIDR')]"
          },
-         "privateLinkSubnetName": {
-           "value": "[parameters('privateLinkSubnetName')]"
+         "storageprivateLinkSubnetName": {
+           "value": "[parameters('storageprivateLinkSubnetName')]"
          },
-         "privateLinkSubnetCIDR": {
-           "value": "[parameters('privateLinkSubnetCIDR')]"
+         "storageprivateLinkSubnetCIDR": {
+           "value": "[parameters('storageprivateLinkSubnetCIDR')]"
          },
+         "sqlprivateLinkSubnetName": {
+           "value": "[parameters('sqlprivateLinkSubnetName')]"
+         },
+         "sqlprivateLinkSubnetCIDR": {
+           "value": "[parameters('sqlprivateLinkSubnetCIDR')]"
+         },         
          "vmSubnetName": {
            "value": "[parameters('vmSubnetName')]"
          },
@@ -254,10 +284,10 @@
            "value": "[parameters('rgLocation')]"
          },
          "privateEndpointName": {
-           "value": "[parameters('privateEndpointName')]"
+           "value": "[parameters('storageprivateEndpointName')]"
          },
          "privateEndpointConnectionName": {
-           "value": "[parameters('privateEndpointConnectionName')]"
+           "value": "[parameters('storageprivateEndpointConnectionName')]"
          },
          "resourceType": {
            "value": "Microsoft.Storage/storageAccounts"
@@ -269,7 +299,7 @@
            "value": "[parameters('vnetName')]"
          },
          "subnetName": {
-           "value": "[parameters('privateLinkSubnetName')]"
+           "value": "[parameters('storageprivateLinkSubnetName')]"
          },
          "groupId": {
            "value": "dfs"
@@ -291,8 +321,11 @@
          "uri": "[parameters('privateLinkDnsTemplateUri')]"
        },
        "parameters": {
-         "storageAccountName": {
+         "serviceAccountName": {
            "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
+         },
+         "zoneName":{
+           "value": "dfs.core"
          },
          "vnetName": {
            "value": "[parameters('vnetName')]"
@@ -382,6 +415,74 @@
          },
          "azADAdminObjectId": {
            "value": "[parameters('azADAdminObjectId')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "name": "privatelinkdeployment",
+     "resourceGroup": "[parameters('rgName')]",
+     "dependsOn": [
+       "virtualnetworkdeployment",
+       "sqldatabasedeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('privateLinkTemplateUri')]"
+       },
+       "parameters": {
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "privateEndpointName": {
+           "value": "[parameters('sqlprivateEndpointName')]"
+         },
+         "privateEndpointConnectionName": {
+           "value": "[parameters('sqlprivateEndpointConnectionName')]"
+         },
+         "resourceType": {
+           "value": "Microsoft.Sql/servers"
+         },
+         "resourceName": {
+           "value": "[concat('sqlii', parameters('application'), parameters('environment'), parameters('project'))]"
+         },
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
+         },
+         "subnetName": {
+           "value": "[parameters('sqlprivateLinkSubnetName')]"
+         },
+         "groupId": {
+           "value": "sqlServer"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "name": "privatednsdeployment",
+     "resourceGroup": "[parameters('rgName')]",
+     "dependsOn": [
+       "virtualnetworkdeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('privateLinkDnsTemplateUri')]"
+       },
+       "parameters": {
+         "serviceAccountName": {
+           "value": "[concat('sqlii', parameters('application'), parameters('environment'), parameters('project'))]"
+         },
+         "zoneName":{
+           "value": "database"
+         },
+         "vnetName": {
+           "value": "[parameters('vnetName')]"
          }
        }
      }

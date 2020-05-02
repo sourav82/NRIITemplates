@@ -35,18 +35,30 @@
         "vnetAddressCIDR": {
             "value": "10.120.0.0/16"
         },
-        "privateLinkSubnetName": {
-            "value": "privlink-subnet"
+        "storageprivateLinkSubnetName": {
+            "value": "storage-privlink-subnet"
         },
-        "privateLinkSubnetCIDR": {
+        "storageprivateLinkSubnetCIDR": {
             "value": "10.120.0.0/24"
         },
-        "privateEndpointName": {
-            "value": "privlink"
+        "sqlprivateLinkSubnetName": {
+            "value": "sql-privlink-subnet"
         },
-        "privateEndpointConnectionName": {
-            "value": "privconn"
+        "sqlprivateLinkSubnetCIDR": {
+            "value": "10.120.2.0/24"
+        },        
+        "storageprivateEndpointName": {
+            "value": "storageprivlink"
         },
+        "sqlprivateEndpointName": {
+            "value": "sqlprivlink"
+        },        
+        "storageprivateEndpointConnectionName": {
+            "value": "storageprivconn"
+        },
+        "sqlprivateEndpointConnectionName": {
+            "value": "sqlprivconn"
+        },        
         "vmSubnetName": {
             "value": "vm-subnet"
         },

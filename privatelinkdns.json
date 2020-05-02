@@ -2,15 +2,24 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccountName": {
-            "type": "string"
+        "serviceAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Specifies which service this private endpoint for"
+            }
         },
         "vnetName": {
             "type": "string"
+        },
+        "zoneName": {
+           "type": "string",
+           "metadata": {
+                "description": "Specifies global id, e.g, dfs, database etc."
+            }
         }
     },
     "variables": {
-        "privateDnsName":"[concat(parameters('storageAccountName'),'.dfs.core.windows.net')]"
+        "privateDnsName":"[concat(parameters('serviceAccountName'), '.', parameters('zoneName'), '.windows.net')]"
     },
     "resources": [
         {
