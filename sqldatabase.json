@@ -43,6 +43,18 @@
           "description": "The administrator password of the SQL logical server."
         }
       },
+      "azADAdmin": {
+        "type": "string",
+        "metadata": {
+          "description": "The AAD administrator email id for the SQL logical server."
+        }
+      },
+      "azADAdminObjectId": {
+        "type": "string",
+        "metadata": {
+          "description": "The AAD administrator object id for the SQL logical server."
+        }
+      }
     },
     "variables": {
         "sqlServerName": "[concat('sqlii', parameters('applicationName'), parameters('environment'), parameters('projectName'))]",
@@ -112,7 +124,22 @@
             "dependsOn": [
               "[variables('sqlServerName')]"
             ]
-          }
+          },
+          {
+              "type": "administrators",
+              "name": "activeDirectory",
+              "apiVersion": "2014-04-01-preview",
+              "location": "[parameters('rgLocation')]",
+              "properties": {
+                  "administratorType": "ActiveDirectory",
+                  "login": "[parameters('azADAdmin')]",
+                  "sid": "[parameters('azADAdminObjectId')]",
+                  "tenantId": "[subscription().tenantId]"
+              },
+              "dependsOn": [
+                  "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+              ]
+          }          
         ]
       }
     ],

@@ -139,6 +139,18 @@
         "metadata": {
             "description": "Number of conatiners to create"
         }
+    },
+    "azADAdmin": {
+      "type": "string",
+      "metadata": {
+        "description": "The AAD administrator email id for the SQL logical server."
+      }
+    },
+    "azADAdminObjectId": {
+      "type": "string",
+      "metadata": {
+        "description": "The AAD administrator object id for the SQL logical server."
+      }
     }
   },
   "variables": {
@@ -364,6 +376,12 @@
             //   "secretName": "[variables('secretName')]"
             // }
             "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(parameters('rgName')))]"
+         },
+         "azADAdmin": {
+           "value": "[parameters('azADAdmin')]"
+         },
+         "azADAdminObjectId": {
+           "value": "[parameters('azADAdminObjectId')]"
          }
        }
      }

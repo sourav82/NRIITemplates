@@ -70,6 +70,12 @@
         },
         "nbrContainers":{
             "value": 1
+        },
+        "azADAdmin": {
+            "value": "marcia@srvchatterjeeoutlookcom.onmicrosoft.com"
+        },
+        "azADAdminObjectId": {
+            "value": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5"
         }
     }
 }
