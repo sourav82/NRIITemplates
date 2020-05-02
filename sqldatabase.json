@@ -20,16 +20,21 @@
           "description": "The name of the SQL logical server."
         }
       },      
+      "transparentDataEncryption": {
+        "type": "string",
+        "allowedValues": [
+          "Enabled",
+          "Disabled"
+        ],
+        "defaultValue": "Enabled",
+        "metadata": {
+          "description": "Enable or disable Transparent Data Encryption (TDE) for the database."
+        }
+      },      
       "rgLocation": {
         "type": "string",
         "metadata": {
           "description": "Location for all resources."
-        }
-      },
-      "rgName":{
-        "type": "string",
-        "metadata": {
-          "description": "Name of the resource group."
         }
       },
       "administratorLoginPassword": {
@@ -38,46 +43,25 @@
           "description": "The administrator password of the SQL logical server."
         }
       },
-      "enableADS": {
-        "defaultValue": true,
-        "type": "bool",
-        "metadata": {
-          "description": "Enable Advanced Data Security, the user deploying the template must have an administrator or owner permissions."
-        }
-      },
-      "allowAzureIPs": {
-        "defaultValue": true,
-        "type": "bool",
-        "metadata": {
-          "description": "Allow Azure services to access server."
-        }
-      },
-      "connectionType": {
-        "defaultValue": "Default",
-        "allowedValues": [ "Default", "Redirect", "Proxy" ],
-        "type": "string",
-        "metadata": {
-          "description": "SQL logical server connection type."
-        }
-      }
     },
     "variables": {
-       "serverName": "[concat('sqlii',parameters('applicationName'),parameters('environment'),parameters('projectName'))]",
-       "serverResourceGroupName": "[parameters('rgName')]",
-       "subscriptionId": "[subscription().subscriptionId]",
-       "uniqueStorage": "[uniqueString(variables('subscriptionId'), variables('serverResourceGroupName'), parameters('rgLocation'))]",
-       "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]",
-       "uniqueRoleGuid": "[guid(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), variables('storageBlobContributor'), resourceId('Microsoft.Sql/servers', variables('serverName')))]",
-       "StorageBlobContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
-       "administratorLogin": "superuser"
+        "sqlServerName": "[concat('sqlii', parameters('applicationName'), parameters('environment'), parameters('projectName'))]",
+        "databaseName": "[concat('sdbii', parameters('applicationName'), parameters('environment'), parameters('projectName'))]",
+        "databaseEdition": "Premium",
+        "databaseCollation": "SQL_Latin1_General_CP1_CI_AS",
+        "databaseServiceObjectiveName": "Premium",       
+        "administratorLogin": "superuser"
      },
     "resources": [
       {
         "type": "Microsoft.Sql/servers",
         "apiVersion": "2019-06-01-preview",
-        "name": "[variables('serverName')]",
+        "name": "[variables('sqlServerName')]",
         "location": "[parameters('rgLocation')]",
-        "identity": "[if(parameters('enableADS'), json('{\"type\":\"SystemAssigned\"}'), json('null'))]",
+        "tags": {
+          "Environmet-Type": "[parameters('environment')]",
+          "project": "[parameters('projectName')]"
+        },
         "properties": {
           "administratorLogin": "[variables('administratorLogin')]",
           "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
@@ -85,91 +69,61 @@
         },
         "resources": [
           {
-            "condition": "[parameters('allowAzureIPs')]",
-            "type": "firewallRules",
-            "apiVersion": "2015-05-01-preview",
-            "name": "AllowAllWindowsAzureIps",
-            "location": "[parameters('rgLocation')]",
-            "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('serverName'))]"
-            ],
-            "properties": {
-               "endIpAddress": "0.0.0.0",
-              "startIpAddress": "0.0.0.0"
-            }
+             "name": "[variables('databaseName')]",
+             "type": "databases",
+             "apiVersion": "2015-01-01",
+             "location": "[parameters('rgLocation')]",
+             "tags": {
+               "Environment-Type": "[parameters('environment')]",
+               "project": "[parameters('projectName')]"
+             },
+             "properties": {
+               "edition": "[variables('databaseEdition')]",
+               "collation": "[variables('databaseCollation')]",
+               "requestedServiceObjectiveName": "[variables('databaseServiceObjectiveName')]"
+             },
+              "dependsOn": [
+                  "[variables('sqlServerName')]"
+             ],
+             "resources": [
+               {
+                 "comments": "Transparent Data Encryption",
+                 "name": "TDE",
+                 "type": "transparentDataEncryption",
+                 "apiVersion": "2014-04-01-preview",
+                 "properties": {
+                   "status": "[parameters('transparentDataEncryption')]"
+                 },
+                 "dependsOn": [
+                   "[variables('databaseName')]"
+                 ]
+               }
+             ]
           },
           {
-            "condition": "[parameters('enableADS')]",
-            "type": "securityAlertPolicies",
-            "apiVersion": "2017-03-01-preview",
-            "name": "Default",
-            "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('serverName'))]"
-            ],
-            "properties": {
-              "state": "Enabled",
-              "emailAccountAdmins": true
-            }
-          },
-          {
-            "condition": "[parameters('enableADS')]",
-            "type": "vulnerabilityAssessments",
-            "apiVersion": "2018-06-01-preview",
-            "name": "Default",
-            "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('serverName'))]",
-              "[resourceId('Microsoft.Sql/servers/securityAlertPolicies', variables('serverName'), 'Default')]",
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
-            ],
-            "properties": {
-              "storageContainerPath": "[if(parameters('enableADS'), concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))).primaryEndpoints.blob, 'vulnerability-assessment'), json('null'))]",
-              "recurringScans": {
-                "isEnabled": true,
-                "emailSubscriptionAdmins": true
-              }
-            }
-          },
-          {
-            "type": "connectionPolicies",
+            "name": "AllowAllMicrosoftAzureIps",
+            "type": "firewallrules",
             "apiVersion": "2014-04-01",
-            "name": "Default",
-            "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('serverName'))]"
-            ],
+            "location": "[parameters('rgLocation')]",
             "properties": {
-              "connectionType": "[parameters('connectionType')]"
-            }
-          }
-        ]
-      },
-      {
-        "condition": "[parameters('enableADS')]",
-        "type": "Microsoft.Storage/storageAccounts",
-        "apiVersion": "2019-06-01",
-        "name": "[variables('storageName')]",
-        "location": "[parameters('rgLocation')]",
-        "sku": {
-          "name": "Standard_LRS"
-        },
-        "kind": "StorageV2",
-        "resources": [
-          {
-            "condition": "[parameters('enableADS')]",
-            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
-            "apiVersion": "2018-09-01-preview",
-            "name": "[concat(variables('storageName'), '/Microsoft.Authorization/', variables('uniqueRoleGuid') )]",
+              "endIpAddress": "0.0.0.0",
+              "startIpAddress": "0.0.0.0"
+            },
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('serverName'))]",
-              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
-            ],
-            "properties": {
-              "roleDefinitionId": "[variables('StorageBlobContributor')]",
-              "principalId": "[reference(resourceId('Microsoft.Sql/servers', variables('serverName')), '2018-06-01-preview', 'Full').identity.principalId]",
-              "scope": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
-              "principalType": "ServicePrincipal"
-            }
+              "[variables('sqlServerName')]"
+            ]
           }
         ]
       }
-    ]
-   }
+    ],
+    "outputs": {
+      "sqlServerFqdn": {
+        "type": "string",
+        "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName]"
+      },
+      "databaseName": {
+        "type": "string",
+        "value": "[variables('databaseName')]"
+      }
+    }    
+  }
