@@ -363,7 +363,7 @@
             //   },
             //   "secretName": "[variables('secretName')]"
             // }
-            "value": "[concat('kvsecret',parameters('environment'),parameters('project'),uniqueString(parameters('rgName')))]"
+            "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(parameters('rgName')))]"
          }
        }
      }
