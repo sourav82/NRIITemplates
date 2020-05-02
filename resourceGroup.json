@@ -422,7 +422,7 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
-     "name": "privatelinkdeployment",
+     "name": "sqlprivatelinkdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment",
@@ -464,7 +464,7 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
-     "name": "privatednsdeployment",
+     "name": "sqlprivatednsdeployment",
      "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
