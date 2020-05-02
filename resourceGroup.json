@@ -354,12 +354,13 @@
            "value": "[parameters('rgLocation')]"
          },
          "administratorLoginPassword": {
-            "reference": {
-              "keyVault": {
-                "id": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
-              },
-              "secretName": "[variables('secretName')]"
-            }
+            // "reference": {
+            //   "keyVault": {
+            //     "id": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
+            //   },
+            //   "secretName": "[variables('secretName')]"
+            // }
+            "value": "[concat('kvsecret',parameters('environment'),parameters('project'),uniqueString(resourceGroup().id))]"
          }
        }
      }
