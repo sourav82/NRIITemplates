@@ -555,6 +555,9 @@
          },
          "vmName": {
            "value": "[parameters('vmName')]"
+         },
+         "subnetRef":{
+           "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
          }
        }
      }

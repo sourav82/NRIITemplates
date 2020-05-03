@@ -57,13 +57,24 @@
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "networkSecurityGroupName": "[concat('nsgii', uniqueString(resourceGroup().id))]"
+    },
     "resources": [
+        {
+            "type":  "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-12-01",
+            "name":  "[variables('networkSecurityGroupName')]",
+            "location":  "[parameters('rgLocation')]"
+        },        
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-12-01",
             "name": "[parameters('vnetName')]",
             "location": "[parameters('rgLocation')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+            ],
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
@@ -98,7 +109,10 @@
                             "addressPrefix": "[parameters('vmSubnetCIDR')]",
                             "delegations": [],
                             "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Disabled"
+                            "privateLinkServiceNetworkPolicies": "Disabled",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                            }
                         }
                     }                  
                 ]
@@ -144,7 +158,10 @@
                 "addressPrefix": "[parameters('vmSubnetCIDR')]",
                 "delegations": [],
                 "privateEndpointNetworkPolicies": "Disabled",
-                "privateLinkServiceNetworkPolicies": "Disabled"
+                "privateLinkServiceNetworkPolicies": "Disabled",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                }                
             }
         }
     ]
