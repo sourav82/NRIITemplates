@@ -34,12 +34,12 @@
 				"description": "Name of the virtual machine"
 			}
 		},
-		"subnetRef": {
-			"type": "string",
-			"metadata": {
-				"description": "Reference to the subnet where the vm to be deployed"
-			}
-		},
+        "nicName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the nic"
+            }
+        },
 		"rgLocation": {
 			"type": "string",
 			"metadata": {
@@ -67,7 +67,7 @@
 	},
 	"variables": {
 		//"storageAccountName": "[concat('stgii', parameters('application'), parameters('environment'), parameters('project'), '1')]",
-		"nicName": "[concat('nicii', uniquestring(resourceGroup().id))]"
+		//"nicName": "[concat('nicii', uniquestring(resourceGroup().id))]"
 	},
 	"resources": [//{
 	// 		"type": "Microsoft.Storage/storageAccounts",
@@ -87,7 +87,7 @@
 			"location": "[parameters('rgLocation')]",
 			"dependsOn": [
 				//"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-				"[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+				"[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
 			],
 			"properties": {
 				"hardwareProfile": {
@@ -118,7 +118,7 @@
 				},
 				"networkProfile": {
 					"networkInterfaces": [{
-						"id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+						"id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
 					}]
 				},
 				"diagnosticsProfile": {

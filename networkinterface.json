@@ -13,6 +13,12 @@
            "metadata": {
                 "description": "Reference to the subnet for this nic"
             }
+        },
+        "nicName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the nic"
+            }
         }
     },
     "functions": [],
@@ -22,7 +28,7 @@
 			"type": "Microsoft.Network/networkInterfaces",
 			"apiVersion": "2019-12-01",
 			"location": "[parameters('rgLocation')]",
-            "name": "[concat('nicii', uniquestring(resourceGroup().id))]",
+            "name": "[parameters('nicName')]",
 			"properties": {
 				"ipConfigurations": [{
 					"name": "[concat('ipconfigii', uniquestring(resourceGroup().id))]",

@@ -219,7 +219,8 @@
     "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]",
     "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
     //"secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]",
-    "vmName": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]"
+    "vmName": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]",
+    "nicName": "[concat('nicii', uniqueString(parameters('rgName')))]"
   },
   "resources": [
     {
@@ -546,7 +547,10 @@
          },
          "subnetRef": {
            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
-         }
+         },
+        "nicName": {
+          "value": "[variables('nicName')]"
+        }
        }
      }
    },
@@ -580,8 +584,8 @@
          "vmName": {
            "value": "[variables('vmName')]"
          },
-         "subnetRef":{
-           "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
+         "nicName": {
+           "value": "[variables('nicName')]"
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
