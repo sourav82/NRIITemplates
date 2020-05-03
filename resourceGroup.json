@@ -553,6 +553,18 @@
          },
          "subnetRef":{
            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "application": {
+           "value": "[parameters('application')]"
+         },
+         "environment": {
+           "value": "[parameters('environment')]"
+         },
+         "project": {
+           "value": "[parameters('project')]"
          }
        }
      }
