@@ -491,7 +491,7 @@
   ],
   "outputs": {
     "rkkeyvaultoutput": {
-            "value": "[resourceId('Microsoft.KeyVault/vaults', variables('kvname'))]",
+            "value": "[resourceId('Microsoft.KeyVault/vaults', variables('kvName'))]",
             "type": "string"
         }
   }
