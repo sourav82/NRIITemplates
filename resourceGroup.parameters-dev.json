@@ -28,7 +28,10 @@
         },
         "sqlDatabaseTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/sqldatabase.json"
-        },        
+        },   
+        "virtualMachineTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/virtualmachine.json"
+        },              
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
@@ -88,6 +91,18 @@
         },
         "azADAdminObjectId": {
             "value": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5"
-        }
+        },
+        "adminUsername": {
+            "value": "superuser"
+        },
+        "adminPassword": {
+            "value": "II"
+        },
+        "windowsOSVersion": {
+            "value": "2019-Datacenter"
+        },
+        "vmSize": {
+            "value": "Standard_D2_v3"
+        }       
     }
 }

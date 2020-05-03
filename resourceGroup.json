@@ -56,6 +56,12 @@
             "description": "Sql database linked template for deployment"
         }
     },     
+    "virtualMachineDeploymentUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Virtual machine linked template deployment"
+        }
+    },
     "keyVaultAccessPolicyObjId": {
         "type": "string",
         "metadata": {
@@ -175,6 +181,38 @@
       "metadata": {
         "description": "The AAD administrator object id for the SQL logical server."
       }
+    },
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "Username for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
+    },
+    "windowsOSVersion": {
+      "type": "string",
+      "defaultValue": "2019-Datacenter",
+      "metadata": {
+        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2_v3",
+      "metadata": {
+        "description": "Size of the virtual machine."
+      }
+    },
+    "vmName": {
+       "type": "string",
+       "metadata": {
+            "description": "Name of the virtual machine"
+        }
     }
   },
   "variables": {
@@ -484,6 +522,39 @@
          },
          "vnetName": {
            "value": "[parameters('vnetName')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgLocation')]",
+     "name": "virtualmachinedeployment",
+     "dependsOn": [
+       "virtualmachinedeployment",
+       "sqldatabasedeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('virtualMachineDeploymentUri')]"
+       },
+       "parameters": {
+         "adminUsername": {
+           "value": "[parameters('adminUsername')]"
+         },
+         "adminPassword": {
+           "value": "[parameters('adminPassword')]"
+         },
+         "windowsOSVersion": {
+           "value": "[parameters('windowsOSVersion')]"
+         },
+         "vmSize": {
+           "value": "[parameters('vmSize')]"
+         },
+         "vmName": {
+           "value": "[parameters('vmName')]"
          }
        }
      }
