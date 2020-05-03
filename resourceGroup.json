@@ -531,7 +531,7 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
-     "resourceGroup": "[parameters('rgLocation')]",
+     "resourceGroup": "[parameters('rgName')]",
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
