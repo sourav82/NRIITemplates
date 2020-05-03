@@ -28,7 +28,18 @@
 			"type": "Microsoft.Network/networkInterfaces",
 			"apiVersion": "2019-12-01",
 			"location": "[parameters('rgLocation')]",
-            "name": "[parameters('nicName')]"
+            "name": "[parameters('nicName')]",
+			"properties": {
+				"ipConfigurations": [{
+					"name": "[concat('ipconfigii001')]",
+					"properties": {
+						"privateIPAllocationMethod": "Dynamic",
+						"subnet": {
+							"id": "[parameters('subnetRef')]"
+						}
+					}
+				}]
+			}
 		}
     ],
     "outputs": {}
