@@ -527,7 +527,7 @@
      "resourceGroup": "[parameters('rgLocation')]",
      "name": "virtualmachinedeployment",
      "dependsOn": [
-       "virtualmachinedeployment",
+       "virtualnetworkdeployment",
        "sqldatabasedeployment"
      ],
      "properties": {
