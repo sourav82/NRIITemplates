@@ -220,7 +220,7 @@
     "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
     //"secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]",
     "vmName": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]",
-    "nicName": "[concat('nicii', uniqueString(parameters('rgName')))]"
+    "nicName": "[concat('nicii', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]"
   },
   "resources": [
     {
