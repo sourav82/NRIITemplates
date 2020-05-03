@@ -102,7 +102,7 @@
             "value": "2019-Datacenter"
         },
         "vmSize": {
-            "value": "Standard_D2_v3"
+            "value": "Standard_DS1_v2"
         }     
     }
 }

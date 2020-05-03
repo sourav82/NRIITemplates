@@ -67,7 +67,7 @@
 	},
 	"variables": {
 		//"storageAccountName": "[concat('stgii', parameters('application'), parameters('environment'), parameters('project'), '1')]",
-		"nicName": "[concat('nicii', parameters('application'), parameters('environment'), parameters('project'), uniquestring(resourceGroup().id))]"
+		"nicName": "[concat('nicii', uniquestring(resourceGroup().id))]"
 	},
 	"resources": [//{
 	// 		"type": "Microsoft.Storage/storageAccounts",
