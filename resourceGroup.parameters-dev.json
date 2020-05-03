@@ -29,6 +29,9 @@
         "sqlDatabaseTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/sqldatabase.json"
         },   
+        "networkInterfaceTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/networkinterface.json"
+        }, 
         "virtualMachineTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/virtualmachine.json"
         },              

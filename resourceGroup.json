@@ -55,7 +55,13 @@
        "metadata": {
             "description": "Sql database linked template for deployment"
         }
-    },     
+    },   
+    "networkInterfaceTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Network interface for this deployment"
+        }
+    },  
     "virtualMachineTemplateUri": {
        "type": "string",
        "metadata": {
@@ -524,10 +530,33 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgLocation')]",
+     "dependsOn": [
+       "virtualnetworkdeployment"
+     ],
+     "name": "networkinterfacedeployment",
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('networkInterfaceTemplateUri')]"
+       },
+       "parameters": {
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "subnetRef": {
+           "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
      "resourceGroup": "[parameters('rgName')]",
      "name": "virtualmachinedeployment",
      "dependsOn": [
-       "virtualnetworkdeployment",
+       "networkinterfacedeployment",
        "sqldatabasedeployment"
      ],
      "properties": {

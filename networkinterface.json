@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgLocation": {
+           "type": "string",
+           "metadata": {
+                "description": "Location of the nic"
+            }
+        },
+        "subnetRef": {
+           "type": "string",
+           "metadata": {
+                "description": "Reference to the subnet for this nic"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+			"type": "Microsoft.Network/networkInterfaces",
+			"apiVersion": "2019-12-01",
+			"location": "[parameters('rgLocation')]",
+            "name": "[concat('nicii', uniquestring(resourceGroup().id))]",
+			"properties": {
+				"ipConfigurations": [{
+					"name": "[concat('ipconfigii', uniquestring(resourceGroup().id))]",
+					"properties": {
+						"privateIPAllocationMethod": "Dynamic",
+						"subnet": {
+							"id": "[parameters('subnetRef')]"
+						}
+					}
+				}]
+			}
+		}
+    ],
+    "outputs": {}
+}

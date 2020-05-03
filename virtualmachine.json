@@ -81,23 +81,6 @@
 	// 		"properties": {}
 	// 	},
 		{
-			"type": "Microsoft.Network/networkInterfaces",
-			"apiVersion": "2019-12-01",
-			"name": "[variables('nicName')]",
-			"location": "[parameters('rgLocation')]",
-			"properties": {
-				"ipConfigurations": [{
-					"name": "[concat('ipconfigii', parameters('application'), parameters('environment'), parameters('project'), uniquestring(resourceGroup().id), '-vm')]",
-					"properties": {
-						"privateIPAllocationMethod": "Dynamic",
-						"subnet": {
-							"id": "[parameters('subnetRef')]"
-						}
-					}
-				}]
-			}
-		},
-		{
 			"type": "Microsoft.Compute/virtualMachines",
 			"apiVersion": "2019-07-01",
 			"name": "[parameters('vmName')]",
