@@ -402,13 +402,14 @@
             "value": "Enabled"
          },
          "administratorLoginPassword": {
-            // "reference": {
-            //   "keyVault": {
-            //     "id": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
-            //   },
-            //   "secretName": "[variables('secretName')]"
-            // }
-            "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(parameters('rgName')))]"
+            "reference": {
+              "keyVault": {
+                //"id": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.KeyVault/vaults/', variables('kvName'))]"
+                "id": "[reference('keyvaultdeployment').outputs.rkkeyvault.value]" 
+              },
+              "secretName": "[variables('secretName')]"
+            }
+           // "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(parameters('rgName')))]"
          },
          "azADAdmin": {
            "value": "[parameters('azADAdmin')]"

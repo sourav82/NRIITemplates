@@ -133,9 +133,14 @@
             "[resourceId('Microsoft.KeyVault/vaults', parameters('kvName'))]"
             ],
             "properties": {
-                "value": "[concat('kvsecret',parameters('environment'),parameters('project'),uniqueString(resourceGroup().id))]"
+                "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(resourceGroup().id))]"
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "rkkeyvault": {
+            "value": "[resourceId('Microsoft.KeyVault/vaults', parameters('kvName'))]",
+            "type": "string"
+        }
+    }
 }
