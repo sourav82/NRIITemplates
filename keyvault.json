@@ -123,18 +123,6 @@
                     "defaultAction": "Allow"
                 }
             }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults/secrets",
-            "name": "[concat(parameters('kvName'), '/', parameters('sqlPasswordSecretName'))]",
-            "apiVersion": "2016-10-01",
-            "location": "[parameters('rglocation')]",
-            "dependsOn": [
-            "[resourceId('Microsoft.KeyVault/vaults', parameters('kvName'))]"
-            ],
-            "properties": {
-                "value": "[concat('IIPrograme@kvsecret',parameters('environment'),parameters('project'),uniqueString(resourceGroup().id))]"
-            }
         }
     ],
     "outputs": {
