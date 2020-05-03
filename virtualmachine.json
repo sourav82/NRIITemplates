@@ -87,7 +87,7 @@
 			"location": "[parameters('rgLocation')]",
 			"dependsOn": [
 				//"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-				"[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
+				//"[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
 			],
 			"properties": {
 				"hardwareProfile": {
