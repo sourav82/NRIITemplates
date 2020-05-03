@@ -19,6 +19,6 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'resourceGroup.json'
     csmParametersFile: 'resourceGroup.parameters-dev.json'
-    overrideParameters: '-application nredst'
+    overrideParameters: '-application nredst -adminPassword IIProgramme456'
     deploymentMode: 'Incremental'
     deploymentName: 'dev-deployment'
