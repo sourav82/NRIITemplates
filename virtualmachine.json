@@ -67,20 +67,20 @@
 		}
 	},
 	"variables": {
-		"storageAccountName": "[concat('stgii', parameters('application'), parameters('environment'), parameters('project'), '1')]",
+		//"storageAccountName": "[concat('stgii', parameters('application'), parameters('environment'), parameters('project'), '1')]",
 		"nicName": "[concat('nicii', parameters('application'), parameters('environment'), parameters('project'), uniquestring(resourceGroup().id))]"
 	},
-	"resources": [{
-			"type": "Microsoft.Storage/storageAccounts",
-			"apiVersion": "2018-11-01",
-			"name": "[variables('storageAccountName')]",
-			"location": "[parameters('rgLocation')]",
-			"sku": {
-				"name": "Standard_LRS"
-			},
-			"kind": "Storage",
-			"properties": {}
-		},
+	"resources": [//{
+	// 		"type": "Microsoft.Storage/storageAccounts",
+	// 		"apiVersion": "2018-11-01",
+	// 		"name": "[variables('storageAccountName')]",
+	// 		"location": "[parameters('rgLocation')]",
+	// 		"sku": {
+	// 			"name": "Standard_LRS"
+	// 		},
+	// 		"kind": "Storage",
+	// 		"properties": {}
+	// 	},
 		{
 			"type": "Microsoft.Network/networkInterfaces",
 			"apiVersion": "2019-12-01",
@@ -104,7 +104,7 @@
 			"name": "[parameters('vmName')]",
 			"location": "[parameters('rgLocation')]",
 			"dependsOn": [
-				"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+				//"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
 				"[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
 			],
 			"properties": {
@@ -141,9 +141,9 @@
 				},
 				"diagnosticsProfile": {
 					"bootDiagnostics": {
-						"enabled": true,
+						"enabled": false
 						//"storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))).primaryEndpoints.blob]"
-                        "storageUri": "[concat('https://',variables('storageAccountName'),'.blob.core.windows.net')]"
+                        //"storageUri": "[concat('https://',variables('storageAccountName'),'.blob.core.windows.net')]"
 					}
 				}
 			}
