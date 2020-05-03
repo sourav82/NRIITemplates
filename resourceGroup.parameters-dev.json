@@ -103,6 +103,6 @@
         },
         "vmSize": {
             "value": "Standard_D2_v3"
-        }       
+        }     
     }
 }

@@ -207,18 +207,13 @@
       "metadata": {
         "description": "Size of the virtual machine."
       }
-    },
-    "vmName": {
-       "type": "string",
-       "metadata": {
-            "description": "Name of the virtual machine"
-        }
     }
   },
   "variables": {
     "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]",
     "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
-    "secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]"
+    //"secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]",
+    "vmName": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]"
   },
   "resources": [
     {
@@ -554,7 +549,7 @@
            "value": "[parameters('vmSize')]"
          },
          "vmName": {
-           "value": "[parameters('vmName')]"
+           "value": "[variables('vmName')]"
          },
          "subnetRef":{
            "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
