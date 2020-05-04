@@ -34,7 +34,10 @@
         }, 
         "virtualMachineTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/virtualmachine.json"
-        },              
+        },  
+        "bastionHostTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/bastion.json"
+        },                     
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
@@ -52,7 +55,10 @@
         },
         "sqlprivateLinkSubnetCIDR": {
             "value": "10.120.2.0/24"
-        },        
+        },    
+        "bastionSubnetCIDR": {
+            "value": "10.120.3.0/24"
+        },    
         "storageprivateEndpointName": {
             "value": "storageprivlink"
         },

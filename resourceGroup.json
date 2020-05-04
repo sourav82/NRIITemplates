@@ -68,6 +68,12 @@
             "description": "Virtual machine linked template deployment"
         }
     },
+    "bastionHostTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Bastion host linked template deployment"
+        }
+    },
     "keyVaultAccessPolicyObjId": {
         "type": "string",
         "metadata": {
@@ -145,6 +151,12 @@
        "metadata": {	
             "description": "CIDR IP segment for vm subnet"	
         }	
+    },
+    "bastionSubnetCIDR": {
+       "type": "string",
+       "metadata": {
+            "description": "CIDR IP for bastion host subnet"
+        }
     },
     "project": {
        "type": "string",
@@ -599,6 +611,32 @@
          },
          "project": {
            "value": "[parameters('project')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "bastionhostdeployment",
+     "dependsOn": [
+       "virtualnetworkdeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('bastionHostTemplateUri')]"
+       },
+       "parameters": {
+         "bastionSubnet": {
+           "value": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/AzureBastionSubnet')]"
+         },
+         "bastionHostName": {
+           "value": "[concat('basii', parameters('application'),parameters('environment'),parameters('project'))]"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
          }
        }
      }
