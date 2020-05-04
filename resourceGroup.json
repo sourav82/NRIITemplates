@@ -667,7 +667,7 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
-     "name": "irinstalldeployment",
+     "name": "[concat('irinstalldeployment', copyIndex())]",
      "resourceGroup": "[parameters('rgname')]",
      "dependsOn": [
        "vmcopy"
