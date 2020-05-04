@@ -20,9 +20,6 @@
         "privateLinkTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/privatelink.json"
         },
-        "privateLinkDnsTemplateuri": {
-            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/privatelinkdns.json"
-        },
         "keyVaultTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/keyvault.json"
         },
@@ -43,6 +40,9 @@
         },
         "vnetAddressCIDR": {
             "value": "10.120.0.0/16"
+        },
+        "vmCount": {
+            "value": 2
         },
         "storageprivateLinkSubnetName": {
             "value": "storage-privlink-subnet"

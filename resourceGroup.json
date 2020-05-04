@@ -37,13 +37,7 @@
        "metadata": {	
             "description": "Linked template for private link deployment"	
         }	
-    },	
-    "privateLinkDnsTemplateuri": {	
-       "type": "string",	
-       "metadata": {	
-            "description": "Linked template for private link dns deployment"	
-        }	
-    },	
+    },		
     "keyVaultTemplateUri": {
        "type": "string",
        "metadata": {
@@ -218,6 +212,12 @@
       "metadata": {
         "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
       }
+    },
+    "vmCount": {
+       "type": "int",
+       "metadata": {
+            "description": "Number of virtual machines to be created"
+        }
     },
     "vmSize": {
       "type": "string",
@@ -499,6 +499,10 @@
        "virtualnetworkdeployment"
      ],
      "name": "networkinterfacedeployment",
+      "copy": {
+        "name": "interfacescopy",
+        "count": "[parameters('vmCount')]"
+      },     
      "properties": {
        "mode": "Incremental",
        "templateLink": {
@@ -513,7 +517,7 @@
            "value": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('vmSubnetName'))]"
          },
         "nicName": {
-          "value": "[concat('nicii', parameters('environment'), parameters('project'))]"
+          "value": "[concat('nicii', parameters('environment'), parameters('project'), copyIndex())]"
         }
        }
      }
@@ -527,6 +531,10 @@
        "networkinterfacedeployment",
        "sqldatabasedeployment"
      ],
+      "copy": {
+        "name": "vmcopy",
+        "count": "[parameters('vmCount')]"
+      },     
      "properties": {
        "mode": "Incremental",
        "templateLink": {
@@ -546,10 +554,10 @@
            "value": "[parameters('vmSize')]"
          },
          "vmName": {
-           "value": "[concat('VM', parameters('environment'), parameters('project'))]"
+           "value": "[concat('VM', parameters('environment'), parameters('project'), copyIndex())]"
          },
          "nicName": {
-           "value": "[concat('nicii', parameters('environment'), parameters('project'))]"
+           "value": "[concat('nicii', parameters('environment'), parameters('project'), copyIndex())]"
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
