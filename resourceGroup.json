@@ -528,7 +528,7 @@
      "resourceGroup": "[parameters('rgName')]",
      "name": "[concat('virtualmachinedeployment', copyIndex())]",
      "dependsOn": [
-       "networkinterfacedeployment",
+       "[concat('networkinterfacedeployment', copyIndex())]",
        "sqldatabasedeployment"
      ],
       "copy": {
