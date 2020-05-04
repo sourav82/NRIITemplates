@@ -147,7 +147,7 @@
             "value": "10.120.6.0/24"
         },
         "appServicePlanSku": {
-            "value": "P1"
+            "value": "P1v2"
         }      
     }
 }
