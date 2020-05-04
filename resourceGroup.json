@@ -583,7 +583,7 @@
            "value": "[parameters('vmSize')]"
          },
          "vmName": {
-           "value": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]"
+           "value": "[concat('VM', parameters('environment'), parameters('project'))]"
          },
          "nicName": {
            "value": "[concat('nicii', parameters('environment'), parameters('project'))]"
