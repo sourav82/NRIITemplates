@@ -158,7 +158,14 @@
                         "name": "[parameters('databricksPublicSubnetName')]",
                         "properties": {
                             "addressPrefix": "[parameters('databricksPublicSubnetCIDR')]",
-                            "delegations": [],
+                            "delegations": [
+                                {
+                                    "name": "databricks-del-public",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Databricks/workspaces"
+                                    }
+                                }
+                            ],
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Disabled"
                         }
@@ -167,7 +174,14 @@
                         "name": "[parameters('databricksPrivateSubnetName')]",
                         "properties": {
                             "addressPrefix": "[parameters('databricksPrivateSubnetCIDR')]",
-                            "delegations": [],
+                            "delegations": [
+                                {
+                                    "name": "databricks-del-private",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Databricks/workspaces"
+                                    }
+                                }
+                            ],
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Disabled",
                             "networkSecurityGroup": {
@@ -249,7 +263,14 @@
             ],
             "properties": {
                 "addressPrefix": "[parameters('databricksPublicSubnetCIDR')]",
-                "delegations": [],
+                "delegations": [
+                    {
+                        "name": "databricks-del-public",
+                        "properties": {
+                            "serviceName": "Microsoft.Databricks/workspaces"
+                        }
+                    }
+                ],
                 "privateEndpointNetworkPolicies": "Disabled",
                 "privateLinkServiceNetworkPolicies": "Disabled"               
             }
@@ -264,7 +285,14 @@
             ],
             "properties": {
                 "addressPrefix": "[parameters('databricksPrivateSubnetCIDR')]",
-                "delegations": [],
+                "delegations": [
+                    {
+                        "name": "databricks-del-private",
+                        "properties": {
+                            "serviceName": "Microsoft.Databricks/workspaces"
+                        }
+                    }
+                ],
                 "privateEndpointNetworkPolicies": "Disabled",
                 "privateLinkServiceNetworkPolicies": "Disabled",
                 "networkSecurityGroup": {
