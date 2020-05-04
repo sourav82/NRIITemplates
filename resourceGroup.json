@@ -559,8 +559,11 @@
          "nicName": {
            "value": "[concat('nicii', parameters('environment'), parameters('project'), copyIndex())]"
          },
-         "diskName": {
+         "osDiskName": {
            "value": "[concat('osdisk', parameters('application'), parameters('environment'), parameters('project'), copyIndex())]"
+         },
+         "dataDiskName":{
+           "value": "[concat('datadisk', parameters('application'), parameters('environment'), parameters('project'), copyIndex())]"
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"

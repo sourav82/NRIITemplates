@@ -40,34 +40,22 @@
                 "description": "Name of the nic"
             }
         },
-        "diskName": {
+        "osDiskName": {
            "type": "string",
            "metadata": {
-                "description": "description"
+                "description": "Name of the OS disk"
+            }
+        },
+        "dataDiskname": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the data disk"
             }
         },
 		"rgLocation": {
 			"type": "string",
 			"metadata": {
 				"description": "Location for all resources."
-			}
-		},
-		"application": {
-			"type": "string",
-			"metadata": {
-				"description": "Name of the application"
-			}
-		},
-		"environment": {
-			"type": "string",
-			"metadata": {
-				"description": "Environment of the deployment"
-			}
-		},
-		"project": {
-			"type": "string",
-			"metadata": {
-				"description": "Project name for the deployement"
 			}
 		}
 	},
@@ -112,11 +100,11 @@
 						"version": "latest"
 					},
 					"osDisk": {
-						"name": "[parameters('diskName')]",
+						"name": "[parameters('osdiskName')]",
 						"createOption": "FromImage"
 					},
 					"dataDisks": [{
-						"name": "[concat('datadisk', parameters('application'), parameters('environment'), parameters('project'))]",
+						"name": "[parameters('dataDiskName')]",
 						"diskSizeGB": 1023,
 						"lun": 0,
 						"createOption": "Empty"
