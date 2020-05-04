@@ -314,6 +314,9 @@
          },
          "vmSubnetCIDR": {
            "value": "[parameters('vmSubnetCIDR')]"
+         },
+         "bastionSubnetCIDR": {
+           "value": "[parameters('bastionSubnetCIDR')]"
          }
        }
      }
