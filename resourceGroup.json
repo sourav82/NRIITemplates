@@ -673,7 +673,7 @@
      "name": "[concat('irinstalldeployment', copyIndex())]",
      "resourceGroup": "[parameters('rgname')]",
      "dependsOn": [
-       "datafactorydeployment"
+       "datafactorydeployment",
        "vmcopy"
      ],
      "copy": {
