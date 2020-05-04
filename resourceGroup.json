@@ -684,7 +684,8 @@
        },
        "parameters": {
          "datafactoryId": {
-           "value": "[reference(resourceId(subscription().id, parameters('rgName'), 'Microsoft.Resources/deployments', 'datafactorydeployment')).outputs.irId.value]"
+           //"value": "[reference(resourceId(subscription().id, parameters('rgName'), 'Microsoft.Resources/deployments', 'datafactorydeployment')).outputs.irId.value]"
+           "value": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.Resources/deployments/datafactorydeployment').outputs.irId.value]"
          },
          "virtualMachineName": {
            "value": "[concat('VM', parameters('environment'), parameters('project'), copyIndex())]"
