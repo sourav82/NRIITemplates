@@ -854,7 +854,7 @@
        },
        "parameters": {
          "appName": {
-           "value": ""
+           "value": "[concat('was', parameters('application'),parameters('environment'), parameters('project'))]"
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
