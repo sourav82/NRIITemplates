@@ -68,6 +68,30 @@
             "description": "Bastion host linked template deployment"
         }
     },
+    "dataFactoryTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Azure data factory linked template deployment"
+        }
+    },
+    "integrationRuntimeTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Data factory integration runtime linked template deployment"
+        }
+    },
+    "irInstallTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "IR install linked template"
+        }
+    },
+    "irscriptUrl": {
+       "type": "string",
+       "metadata": {
+            "description": "Url for powershell script to install self hosted runtime"
+        }
+    },
     "keyVaultAccessPolicyObjId": {
         "type": "string",
         "metadata": {
@@ -593,6 +617,83 @@
          },
          "rgLocation": {
            "value": "[parameters('rgLocation')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "datafactorydeployment",
+     "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('dataFactoryTemplateUri')]"
+        },
+        "parameters": {
+          "environment": {
+            "value": "[parameters('environment')]"
+          },
+          "rgLocation": {
+            "value": "[parameters('rgLocation')]"
+          },
+          "name":{
+            "value": "[concat('adf',parameters('environment'))]"
+          }
+        }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "integrationruntimedeployment",
+     "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('integrationRuntimeTemplateUri')]"
+        },
+        "parameters": {
+          "integrationRuntimeName": {
+            "value": "[concat('adfir', parameters('environment'))]"
+          },
+          "dataFactoryName":{
+            "value": "[concat('adf',parameters('environment'))]"
+          }
+        }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "name": "irinstalldeployment",
+     "resourceGroup": "[parameters('rgname')]",
+     "dependsOn": [
+       "vmcopy"
+     ],
+     "copy": {
+       "name": "ircopy",
+       "count": "[parameters('vmCount')]",
+       "mode": "Serial"        
+     },
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('irInstallTemplateUri')]"
+       },
+       "parameters": {
+         "datafactoryId": {
+           "value": "[reference(resourceId(parameters('rgName'), 'Microsoft.Resources/deployments', 'datafactorydeployment')).outputs.irId.value]"
+         },
+         "virtualMachineName": {
+           "value": "[concat('VM', parameters('environment'), parameters('project'), copyIndex())]"
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "scriptUrl": {
+           "value": "[parameters('irscriptUrl')]"
          }
        }
      }

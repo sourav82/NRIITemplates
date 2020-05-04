@@ -34,7 +34,19 @@
         },  
         "bastionHostTemplateUri": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/bastion.json"
-        },                     
+        }, 
+        "dataFactoryTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/azuredatafactory.json"
+        },                            
+        "integrationRuntimeTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/integrationruntime.json"
+        },
+        "irInstallTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/irinstall.json"
+        },  
+        "irscriptUrl": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/irinstall.ps1"
+        },      
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
@@ -112,6 +124,6 @@
         },
         "vmSize": {
             "value": "Standard_DS1_v2"
-        }     
+        } 
     }
 }
