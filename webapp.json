@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the app to create."
+            }
+        },
+        "rgLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "The location in which all resources should be deployed."
+            }
+        },
+        "appServicePlanName": {
+           "type": "string",
+           "metadata": {
+                "description": "Reference to the app service plan"
+            }
+        },
+        "subnetResourceId": {
+           "type": "string",
+           "metadata": {
+                "description": "Reference to the empty subnet for vnet integration"
+            }
+        }
+    },
+    "variables": {
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('appName')]",
+            "location": "[parameters('rgLocation')]",
+            "kind": "app",
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlanName'))]"
+            },
+            "resources": [
+                {
+                    "name": "virtualNetwork",
+                    "type": "networkConfig",
+                    "apiVersion": "2018-11-01",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
+                    ],
+                    "properties": {
+                        "subnetResourceId": "[parameters('subnetResourceId')]", //"[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnetName'))]",
+                        "swiftSupported": true
+                    }
+                }
+            ]
+        }
+    ]
+}

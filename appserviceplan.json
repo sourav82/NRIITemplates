@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appServicePlanSku": {
+           "type": "string",
+           "metadata": {
+                "description": "Sku for app service plan"
+            }
+        },
+        "rgLocation": {
+           "type": "string",
+           "metadata": {
+                "description": "Location of the app service plan"
+            }
+        },
+        "appServicePlanName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the app service plan"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[parameters('appServicePlanName')]",
+            "location": "[parameters('rglocation')]",
+            "sku": {
+                "name": "[parameters('appServicePlanSku')]"
+            },
+            "kind": "app"
+        }
+    ],
+    "outputs": {}
+}

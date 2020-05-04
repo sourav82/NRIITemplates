@@ -86,6 +86,12 @@
             "description": "IR install linked template"
         }
     },
+    "webAppTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Web app linked template"
+        }
+    },
     "irscriptUrl": {
        "type": "string",
        "metadata": {
@@ -96,6 +102,12 @@
        "type": "string",
        "metadata": {
             "description": "Url for databricks workspace linked template"
+        }
+    },
+    "aspTemplateUri": {
+       "type": "string",
+       "metadata": {
+            "description": "Url for app service plan linked template"
         }
     },
     "keyVaultAccessPolicyObjId": {
@@ -278,11 +290,25 @@
        "metadata": {
             "description": "Pricing tier of databricks workspace"
         }
+    },
+    "applicationSubnetCIDR": {
+       "type": "string",
+       "metadata": {
+            "description": "IP CIDR for application vnet integration"
+        }
+    },
+    "appServicePlanSku": {
+       "type": "string",
+       "metadata": {
+            "description": "Sku for the app service plan"
+        }
     }
   },
   "variables": {
     "sqlPasswordSecretName": "[concat('sqlsecret', parameters('application'), parameters('environment'), parameters('project'))]",
-    "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]"
+    "kvName":"[concat('kvii', parameters('application'), parameters('environment'), parameters('project'))]",
+    "appServicePlanName": "[concat('asp',parameters('application'),parameters('environment'),parameters('project'))]",
+    "applicationSubnetName": "[concat('app-subnet-', parameters('application'), parameters('environment'), parameters('project'))]"
     //"secretName": "[concat(variables('kvName'), '/', variables('sqlPasswordSecretName'))]",
     //"vmName": "[concat('VM', parameters('environment'), parameters('project'), uniqueString(parameters('rgName')))]"
     //"nicName": "[concat('nicii', parameters('environment'), parameters('project'))]"
@@ -382,6 +408,12 @@
          },
          "databricksPrivateSubnetCIDR": {
            "value": "[parameters('databricksPrivateSubnetCIDR')]"
+         },
+         "applicationSubnetName":{
+           "value": "[variables('applicationSubnetName')]"
+         },
+         "applicationSubnetCIDR": {
+           "value": "[parameters('applicationSubnetCIDR')]"
          }
        }
      }
@@ -776,6 +808,62 @@
          },
          "rgLocation":{
            "value": "[parameters('rgLocation')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "name": "appserviceplandeployment",
+     "resourceGroup": "[parameters('rgName')]",
+     "dependsOn": [
+        "virtualnetworkdeployment",
+        "sqldatabasedeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('aspTemplateUri')]"
+       },
+       "parameters": {
+         "appServicePlanSku": {
+           "value": "[parameters('appServicePlanSku')]"
+         },
+         "rglocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "appServicePlanName": {
+           "value": "[variables('appServicePlanName')]"
+         }
+       }
+     }
+   },
+   {
+     "type": "Microsoft.Resources/deployments",
+     "apiVersion": "2019-10-01",
+     "resourceGroup": "[parameters('rgName')]",
+     "name": "webappdeployment",
+     "dependsOn": [
+       "appserviceplandeployment"
+     ],
+     "properties": {
+       "mode": "Incremental",
+       "templateLink": {
+         "uri": "[parameters('webAppTemplateUri')]"
+       },
+       "parameters": {
+         "appName": {
+           "value": ""
+         },
+         "rgLocation": {
+           "value": "[parameters('rgLocation')]"
+         },
+         "appServicePlanName": {
+           "value": "[variables('appServicePlanName')]"
+         },
+         "subnetResourceId":{
+           "value": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', variables('applicationSubnetName'))]"
          }
        }
      }

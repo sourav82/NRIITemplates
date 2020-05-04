@@ -85,6 +85,18 @@
            "metadata": {
                 "description": "IP CIDR for databricks private subnet"
             }
+        },
+        "applicationSubnetName": {
+           "type": "string",
+           "metadata": {
+                "description": "Subnet name for application vnet integration"
+            }
+        },
+        "applicationSubnetCIDR": {
+           "type": "string",
+           "metadata": {
+                "description": "IP CIDR for the application subnet"
+            }
         }
     },
     "variables": {
@@ -190,6 +202,20 @@
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
                             }
+                        }
+                    },
+                    {
+                        "name": "[parameters('applicationSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('applicationSubnetCIDR')]",
+                            "delegations": [
+                                {
+                                    "name": "appservice-del",
+                                    "properties": {
+                                        "serviceName": "Microsoft.Web/serverFarms"
+                                    }
+                                }
+                            ]
                         }
                     }                                                             
                 ]
