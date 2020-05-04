@@ -160,7 +160,10 @@
                             "addressPrefix": "[parameters('databricksPublicSubnetCIDR')]",
                             "delegations": [],
                             "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Disabled"
+                            "privateLinkServiceNetworkPolicies": "Disabled",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                            }
                         }
                     } ,
                     {
@@ -169,7 +172,10 @@
                             "addressPrefix": "[parameters('databricksPrivateSubnetCIDR')]",
                             "delegations": [],
                             "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Disabled"
+                            "privateLinkServiceNetworkPolicies": "Disabled",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                            }
                         }
                     }                                                             
                 ]
