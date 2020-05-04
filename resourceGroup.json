@@ -365,32 +365,6 @@
    {
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
-     "name": "privatednsdeployment",
-     "resourceGroup": "[parameters('rgName')]",
-     "dependsOn": [
-       "virtualnetworkdeployment"
-     ],
-     "properties": {
-       "mode": "Incremental",
-       "templateLink": {
-         "uri": "[parameters('privateLinkDnsTemplateUri')]"
-       },
-       "parameters": {
-         "serviceAccountName": {
-           "value": "[concat('stg', 'ii', parameters('application'), parameters('environment'))]"
-         },
-         "zoneName":{
-           "value": "dfs.core"
-         },
-         "vnetName": {
-           "value": "[parameters('vnetName')]"
-         }
-       }
-     }
-   },
-   {
-     "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2019-10-01",
      "resourceGroup": "[parameters('rgName')]",
      "name": "keyvaultdeployment",
      "dependsOn": [
@@ -513,32 +487,6 @@
          },
          "groupId": {
            "value": "sqlServer"
-         }
-       }
-     }
-   },
-   {
-     "type": "Microsoft.Resources/deployments",
-     "apiVersion": "2019-10-01",
-     "name": "sqlprivatednsdeployment",
-     "resourceGroup": "[parameters('rgName')]",
-     "dependsOn": [
-       "virtualnetworkdeployment"
-     ],
-     "properties": {
-       "mode": "Incremental",
-       "templateLink": {
-         "uri": "[parameters('privateLinkDnsTemplateUri')]"
-       },
-       "parameters": {
-         "serviceAccountName": {
-           "value": "[concat('sqlii', parameters('application'), parameters('environment'), parameters('project'))]"
-         },
-         "zoneName":{
-           "value": "database"
-         },
-         "vnetName": {
-           "value": "[parameters('vnetName')]"
          }
        }
      }
