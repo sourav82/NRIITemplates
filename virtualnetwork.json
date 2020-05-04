@@ -167,7 +167,10 @@
                                 }
                             ],
                             "privateEndpointNetworkPolicies": "Disabled",
-                            "privateLinkServiceNetworkPolicies": "Disabled"
+                            "privateLinkServiceNetworkPolicies": "Disabled",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                            }   
                         }
                     } ,
                     {
@@ -272,7 +275,10 @@
                     }
                 ],
                 "privateEndpointNetworkPolicies": "Disabled",
-                "privateLinkServiceNetworkPolicies": "Disabled"               
+                "privateLinkServiceNetworkPolicies": "Disabled",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                }               
             }
         },
         {
