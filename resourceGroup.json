@@ -649,6 +649,9 @@
      "apiVersion": "2019-10-01",
      "resourceGroup": "[parameters('rgName')]",
      "name": "integrationruntimedeployment",
+     "dependsOn": [
+       "datafactorydeployment"
+     ],
      "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -670,6 +673,7 @@
      "name": "[concat('irinstalldeployment', copyIndex())]",
      "resourceGroup": "[parameters('rgname')]",
      "dependsOn": [
+       "datafactorydeployment"
        "vmcopy"
      ],
      "copy": {
