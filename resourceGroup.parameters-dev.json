@@ -46,7 +46,10 @@
         },  
         "irscriptUrl": {
             "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/irinstall.ps1"
-        },      
+        },  
+        "databricksWorkspaceTemplateUri": {
+            "value": "https://raw.githubusercontent.com/sourav82/NRIITemplates/azure-pipelines/databricksworkspace.json"
+        },    
         "vnetName": {
             "value": "VNET-DEV" // TODO: Fill in parameter value
         },
@@ -124,6 +127,15 @@
         },
         "vmSize": {
             "value": "Standard_DS1_v2"
-        } 
+        },
+        "databricksPricingTier": {
+            "value": "Premium"
+        },
+        "databricksPublicSubnetCIDR": {
+            "value": "10.120.4.0/24"
+        },
+        "databricksPrivateSubnetCIDR": {
+            "value": "10.120.5.0/24"
+        }        
     }
 }
