@@ -40,6 +40,12 @@
                 "description": "Name of the nic"
             }
         },
+        "diskName": {
+           "type": "string",
+           "metadata": {
+                "description": "description"
+            }
+        },
 		"rgLocation": {
 			"type": "string",
 			"metadata": {
@@ -106,7 +112,7 @@
 						"version": "latest"
 					},
 					"osDisk": {
-						"name": "[concat('osdisk', parameters('application'), parameters('environment'), parameters('project'))]",
+						"name": "[parameters('diskName')]",
 						"createOption": "FromImage"
 					},
 					"dataDisks": [{
