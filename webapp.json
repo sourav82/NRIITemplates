@@ -36,6 +36,9 @@
             "apiVersion": "2018-11-01",
             "name": "[parameters('appName')]",
             "location": "[parameters('rgLocation')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "kind": "app",
             "properties": {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlanName'))]"

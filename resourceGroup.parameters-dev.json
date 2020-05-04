@@ -108,7 +108,7 @@
             "value": "Standard"
         },
         "keyVaultAccessPolicyObjId": {
-            "value": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5"
+            "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         },
         "containerPrefix": {
             "value": "container-"
@@ -117,10 +117,10 @@
             "value": 1
         },
         "azADAdmin": {
-            "value": "marcia@srvchatterjeeoutlookcom.onmicrosoft.com"
+            "value": "xxxx@rrr.com"
         },
         "azADAdminObjectId": {
-            "value": "62b0932b-79a4-4ec1-b2d0-68526e6e7ca5"
+            "value": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         },
         "adminUsername": {
             "value": "superuser"

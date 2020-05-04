@@ -14,11 +14,11 @@ steps:
   inputs:
     deploymentScope: 'Subscription'
     azureResourceManagerConnection: 'AzureRmPipelineConn'
-    subscriptionId: '20a2b842-e086-436b-ad2f-5ba34b40e97f'
+    subscriptionId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     location: 'East US'
     templateLocation: 'Linked artifact'
     csmFile: 'resourceGroup.json'
     csmParametersFile: 'resourceGroup.parameters-dev.json'
-    overrideParameters: '-application nredst -adminPassword IIProgramme456'
+    overrideParameters: '-application appname -adminPassword xxxxxxxx'
     deploymentMode: 'Incremental'
     deploymentName: 'dev-deployment'
