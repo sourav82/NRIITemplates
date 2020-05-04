@@ -546,7 +546,8 @@
            "value": "[parameters('rgLocation')]"
          },
          "subnetRef": {
-           "value": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vnetName'), parameters('vmSubnetName'))]"
+           //"value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'), parameters('vmSubnetName'))]"
+           "value": "[concat(subscription().Id, '/resourceGroups/', parameters('rgName'), '/providers/Microsoft.Network/virtualNetworks/', parameters('vnetName'), '/subnets/', parameters('vmSubnetName'))]"
          },
         "nicName": {
           "value": "[concat('nicii', parameters('environment'), parameters('project'))]"
