@@ -100,13 +100,20 @@
         }
     },
     "variables": {
-        "networkSecurityGroupName": "[concat('nsgii', uniqueString(resourceGroup().id))]"
+        "networkSecurityGroupName": "[concat('nsgii', uniqueString(resourceGroup().id))]",
+        "adbNetworkSecurityGroupName": "[concat('databricksnsgii', uniqueString(resourceGroup().id))]"
     },
     "resources": [
         {
             "type":  "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-12-01",
             "name":  "[variables('networkSecurityGroupName')]",
+            "location":  "[parameters('rgLocation')]"
+        }, 
+        {
+            "type":  "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-12-01",
+            "name":  "[variables('adbNetworkSecurityGroupName')]",
             "location":  "[parameters('rgLocation')]"
         },        
         {
@@ -115,7 +122,8 @@
             "name": "[parameters('vnetName')]",
             "location": "[parameters('rgLocation')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('adbNetworkSecurityGroupName'))]"
             ],
             "properties": {
                 "addressSpace": {
@@ -181,7 +189,7 @@
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Disabled",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('adbNetworkSecurityGroupName'))]"
                             }   
                         }
                     } ,
@@ -200,7 +208,7 @@
                             "privateEndpointNetworkPolicies": "Disabled",
                             "privateLinkServiceNetworkPolicies": "Disabled",
                             "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('adbNetworkSecurityGroupName'))]"
                             }
                         }
                     },
