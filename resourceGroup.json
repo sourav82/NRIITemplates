@@ -128,22 +128,10 @@
             "description": "CIDR IP segment for private link subnet fir storage"	
         }	
     },	
-    "databricksPublicSubnetName": {
-        "type": "string",
-        "metadata": {
-            "description": "Name of public subnet for databricks"
-        }
-    },
     "databricksPublicSubnetCIDR": {
         "type": "string",
         "metadata": {
             "description": "IP CIDR for databricks public subnet"
-        }
-    },
-    "databricksPrivateSubnetName": {
-        "type": "string",
-        "metadata": {
-            "description": "Name of private subnet for databricks"
         }
     },
     "databricksPrivateSubnetCIDR": {
