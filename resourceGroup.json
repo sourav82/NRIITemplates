@@ -639,7 +639,7 @@
             "value": "[parameters('rgLocation')]"
           },
           "name":{
-            "value": "[concat('adf',parameters('environment'))]"
+            "value": "[concat('adf', parameters('application'), parameters('environment'), parameters('project'))]"
           }
         }
      }
@@ -656,10 +656,10 @@
         },
         "parameters": {
           "integrationRuntimeName": {
-            "value": "[concat('adfir', parameters('environment'))]"
+            "value": "[concat('adfir', parameters('application'), parameters('environment'), parameters('project'))]"
           },
           "dataFactoryName":{
-            "value": "[concat('adf',parameters('environment'))]"
+            "value": "[concat('adf', parameters('application'), parameters('environment'), parameters('project'))]"
           }
         }
      }
