@@ -129,7 +129,7 @@
             "value": "Standard_DS1_v2"
         },
         "databricksPricingTier": {
-            "value": "Premium"
+            "value": "premium"
         },
         "databricksPublicSubnetCIDR": {
             "value": "10.120.4.0/24"
