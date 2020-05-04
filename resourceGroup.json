@@ -498,7 +498,7 @@
      "dependsOn": [
        "virtualnetworkdeployment"
      ],
-     "name": "networkinterfacedeployment",
+     "name": "[concat('networkinterfacedeployment', copyIndex())]",
       "copy": {
         "name": "interfacescopy",
         "count": "[parameters('vmCount')]"
@@ -526,7 +526,7 @@
      "type": "Microsoft.Resources/deployments",
      "apiVersion": "2019-10-01",
      "resourceGroup": "[parameters('rgName')]",
-     "name": "virtualmachinedeployment",
+     "name": "[concat('virtualmachinedeployment', copyIndex())]",
      "dependsOn": [
        "networkinterfacedeployment",
        "sqldatabasedeployment"
